@@ -10,8 +10,6 @@ import { AuthDirective } from './shared/directives/auth.directive';
 import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { PublicModule } from './modules/public/public.module';
-import { Error404Component } from './modules/errors/error404/error404.component';
-import { Error500Component } from './modules/errors/error500/error500.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +20,7 @@ import { Error500Component } from './modules/errors/error500/error500.component'
     AuthDirective,
     CapitalizePipe,
     SafePipe,
-    Error404Component,
-    Error500Component
+  
   ],
   imports: [
     BrowserModule,
