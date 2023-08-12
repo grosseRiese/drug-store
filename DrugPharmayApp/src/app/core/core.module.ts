@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -10,8 +10,9 @@ import { HeaderComponent } from './header/header.component';
     FooterComponent,
     HeaderComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this line
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class CoreModule { }

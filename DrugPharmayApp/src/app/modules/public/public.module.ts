@@ -8,13 +8,15 @@ import { RouterModule } from '@angular/router';
 import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
+import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.component';
 
 
 
 @NgModule({
   declarations: [
     PublicComponent,
-    HomeComponent
+    HomeComponent,
+    DropdownMenuComponent
   ],
   imports: [
     CommonModule,
