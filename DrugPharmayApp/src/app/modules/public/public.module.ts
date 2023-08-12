@@ -6,9 +6,11 @@ import { PublicComponent } from './public.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.component';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { CartComponent } from './components/cart/cart.component';
 
 
 
@@ -16,18 +18,24 @@ import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.
   declarations: [
     PublicComponent,
     HomeComponent,
-    DropdownMenuComponent
+    DropdownMenuComponent,
+    SearchFilterPipe,
+    CartComponent,
+    
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
     SharedModule,
+    ReactiveFormsModule,
+    NgbModule
   ],
   exports:[
     RouterModule,
     NgbModule,
     NgbTypeaheadModule,
-    FormsModule,    
+    FormsModule,
+    SearchFilterPipe,    
   ]
 })
 export class PublicModule { }

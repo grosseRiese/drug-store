@@ -10,6 +10,7 @@ import { AuthDirective } from './shared/directives/auth.directive';
 import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { PublicModule } from './modules/public/public.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { PublicModule } from './modules/public/public.module';
     BrowserModule,
     AppRoutingModule,
     PublicModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
