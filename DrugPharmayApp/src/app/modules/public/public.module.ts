@@ -16,7 +16,7 @@ import { CartComponent } from './components/cart/cart.component';
 @NgModule({
   declarations: [
     PublicComponent,
-    //HomeComponent,
+    HomeComponent,
     //CartComponent,
     SearchFilterPipe,
     
@@ -26,14 +26,15 @@ import { CartComponent } from './components/cart/cart.component';
     CommonModule,
     PublicRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
     NgbModule,
+    ReactiveFormsModule,
+    
   ],
   exports:[
     RouterModule,
+    FormsModule,
     NgbModule,
     NgbTypeaheadModule,
-    FormsModule,
     SearchFilterPipe,    
   ]
 })
