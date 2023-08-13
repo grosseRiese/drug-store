@@ -10,11 +10,8 @@ import { AuthDirective } from './shared/directives/auth.directive';
 import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { PublicModule } from './modules/public/public.module';
-import { CoreModule } from './core/core.module';
 import { HeaderComponent } from './core/header/header.component';
-import { SharedModule } from './shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +26,8 @@ import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    //AppRoutingModule,
+    ,
     
   ],
   providers: [],
