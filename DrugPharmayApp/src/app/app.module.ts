@@ -26,15 +26,11 @@ import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
     CapitalizePipe,
     SafePipe,
     HeaderComponent,
-  
-  
   ],
   imports: [
     BrowserModule,
-    PublicModule,
-    CoreModule,
     AppRoutingModule,
-    SharedModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
