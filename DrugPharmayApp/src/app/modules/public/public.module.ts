@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
-import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.component';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { CartComponent } from './components/cart/cart.component';
 
@@ -18,7 +17,6 @@ import { CartComponent } from './components/cart/cart.component';
   declarations: [
     PublicComponent,
     HomeComponent,
-    DropdownMenuComponent,
     SearchFilterPipe,
     CartComponent,
     
@@ -27,6 +25,7 @@ import { CartComponent } from './components/cart/cart.component';
     CommonModule,
     PublicRoutingModule,
     SharedModule,
+    FormsModule,
     ReactiveFormsModule,
     NgbModule
   ],

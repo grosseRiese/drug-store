@@ -10,7 +10,8 @@ import { AuthDirective } from './shared/directives/auth.directive';
 import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { PublicModule } from './modules/public/public.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
+import { HeaderComponent } from './core/header/header.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthDirective,
     CapitalizePipe,
     SafePipe,
+    HeaderComponent
   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     PublicModule,
+    CoreModule,
     
   ],
   providers: [],
