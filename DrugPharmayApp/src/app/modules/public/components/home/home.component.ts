@@ -13,7 +13,7 @@ import { DrugService } from '../../services/drug.service';
 export class HomeComponent implements OnInit{
   public drugs: IDrug[] = [];
 
-  selectedDrug: any;
+  selectedDrug:any;
   selectedDrugForm!: FormGroup;
 
 

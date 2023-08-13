@@ -13,6 +13,8 @@ import { PublicModule } from './modules/public/public.module';
 import { CoreModule } from './core/core.module';
 import { HeaderComponent } from './core/header/header.component';
 import { SharedModule } from './shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { SharedModule } from './shared/shared.module';
     AuthDirective,
     CapitalizePipe,
     SafePipe,
-    HeaderComponent
+    HeaderComponent,
+  
   
   ],
   imports: [

@@ -2,22 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  /*{
-    path: 'auth',
+
+  {
+    path: 'home',
     loadChildren: () =>
-      import('./modules/auth/auth.module').then((m) => m.AuthModule),
-  },*/
-  
+      import('./modules/public/public.module').then((m) => m.PublicModule),
+  },
   {
     path: 'dashboard',
     //canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/private/private.module').then((m) => m.PrivateModule),
-  },
-  {
-    path: 'home',
-    loadChildren: () =>
-      import('./modules/public/public.module').then((m) => m.PublicModule),
   },
   {
     path: 'error',

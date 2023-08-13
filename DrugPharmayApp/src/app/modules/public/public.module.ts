@@ -16,15 +16,15 @@ import { CartComponent } from './components/cart/cart.component';
 @NgModule({
   declarations: [
     PublicComponent,
-    HomeComponent,
+    //HomeComponent,
+    //CartComponent,
     SearchFilterPipe,
-    CartComponent,
+    
     
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
-    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
