@@ -12,6 +12,7 @@ import { SafePipe } from './shared/pipes/safe.pipe';
 import { PublicModule } from './modules/public/public.module';
 import { CoreModule } from './core/core.module';
 import { HeaderComponent } from './core/header/header.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,10 +28,10 @@ import { HeaderComponent } from './core/header/header.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     PublicModule,
     CoreModule,
-    
+    AppRoutingModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

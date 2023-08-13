@@ -27,7 +27,7 @@ import { CartComponent } from './components/cart/cart.component';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
   ],
   exports:[
     RouterModule,

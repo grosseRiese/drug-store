@@ -7,11 +7,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },*/
-  {
-    path: 'error',
-    loadChildren: () =>
-      import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
-  },
+  
   {
     path: 'dashboard',
     //canActivate: [AuthGuard],
@@ -19,9 +15,14 @@ const routes: Routes = [
       import('./modules/private/private.module').then((m) => m.PrivateModule),
   },
   {
-    path: '',
+    path: 'home',
     loadChildren: () =>
       import('./modules/public/public.module').then((m) => m.PublicModule),
+  },
+  {
+    path: 'error',
+    loadChildren: () =>
+      import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
   },
   {
     path: '**',
