@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { CartComponent } from './components/cart/cart.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,7 +22,8 @@ import { CartComponent } from './components/cart/cart.component';
   imports: [
     CommonModule,
     PublicRoutingModule,
-    
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports:[
     RouterModule,
