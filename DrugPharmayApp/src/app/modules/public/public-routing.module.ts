@@ -6,14 +6,23 @@ import { HomeComponent } from './components/home/home.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
+    //pathMatch: 'full',
     component: PublicComponent,
     children:[
       {
-        path: 'home',
+        path: '',
+        pathMatch: 'full',
         component: HomeComponent,
-        pathMatch: 'full'
-      }
+      },
+      {
+        path: 'home',
+        pathMatch: 'full',
+        component: HomeComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'error/404',
+      },
     ],   
   },
   
