@@ -26,8 +26,7 @@ import { HeaderComponent } from './core/header/header.component';
   ],
   imports: [
     BrowserModule,
-    //AppRoutingModule,
-    ,
+    AppRoutingModule,
     
   ],
   providers: [],
