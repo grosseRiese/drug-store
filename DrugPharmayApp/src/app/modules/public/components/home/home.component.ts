@@ -12,7 +12,7 @@ import { DrugService } from '../../services/drug.service';
 })
 export class HomeComponent implements OnInit{
   public drugs: IDrug[] = [];
-  //selectedDrug: any;
+  //selectedDrug: string ="";
   selectedDrugForm!: FormGroup;
 
   constructor(private drugService: DrugService, private cartService: CartService) {}
