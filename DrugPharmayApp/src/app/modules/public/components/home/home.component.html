@@ -1,2 +1,9 @@
 <h3> HOME Component...s</h3>
+ <form [formGroup]="selectedDrugForm"> 
+  <select formControlName="selectedDrugName">
+   <option *ngFor="let item of drugs" [value]="item.name">
+    {{ item.name }}
+   </option>
+  </select>
+ </form>
 <app-cart></app-cart>
