@@ -5,6 +5,7 @@ import { PublicComponent } from './public.component';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { CartComponent } from './components/cart/cart.component';
 
 
 
@@ -13,6 +14,7 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     PublicComponent,
     HomeComponent,
     SearchFilterPipe,
+    CartComponent,
     
     
   ],
