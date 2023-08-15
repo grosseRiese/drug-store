@@ -13,18 +13,34 @@ import { DrugService } from '../../services/drug.service';
 })
 export class HomeComponent implements OnInit{
   public drugs: IDrug[] = [];
-
-  selectedDrug: IDrug | undefined;
-
   selectedDrugForm!: FormGroup;
+
+
+  countries: any[] | undefined;
+  selectedCountry: string | undefined;
 
   constructor(private drugService: DrugService, private cartService: CartService) {}
 
   ngOnInit(): void {
+
+    this.countries = [
+      { name: 'Australia', code: 'AU' },
+      { name: 'Brazil', code: 'BR' },
+      { name: 'China', code: 'CN' },
+      { name: 'Egypt', code: 'EG' },
+      { name: 'France', code: 'FR' },
+      { name: 'Germany', code: 'DE' },
+      { name: 'India', code: 'IN' },
+      { name: 'Japan', code: 'JP' },
+      { name: 'Spain', code: 'ES' },
+      { name: 'United States', code: 'US' }
+  ];
+
+
+
     this.selectedDrugForm = new FormGroup({
       selectedDrugName: new FormControl('', [Validators.required]),
       selectedDrugQuantity: new FormControl(0, [Validators.required, Validators.min(1)]), } );
-
     this.loadDrugsList();
   }
 
