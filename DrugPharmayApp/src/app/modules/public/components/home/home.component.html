@@ -1,19 +1,17 @@
-<h3> HOME Component...s</h3>
 
+<div class="container m-5">
+  <h3> HOME Component...s</h3>
 
-
-
-
-<div class="card flex justify-content-center">
   <form [formGroup]="selectedDrugForm">
   
-    <p-dropdown [options]="drugs"  formControlName="selectedDrugName" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Drug">
+    <p-dropdown [options]="drugs" formControlName="selectedDrugName" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Drug">
         <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center gap-2" *ngIf="selectedDrugForm">
-                <div>{{ selectedDrugForm }}</div>
+            <div class="flex align-items-center gap-2" *ngIf="selectedDrugForm && selectedDrugForm.get('selectedDrugName')?.value">
+                <div>{{ selectedDrugForm.get('selectedDrugName')?.value.name}}</div>
             </div>
         </ng-template>
-        <ng-template let-drug pTemplate="item">
+
+        <ng-template let-drug pTemplate="drug">
             <div class="flex align-items-center gap-2">
                 <div>{{ drug.name }}</div>
             </div>
@@ -21,7 +19,9 @@
     </p-dropdown>
 
   </form>
+
 </div>
 
 
 <app-cart></app-cart>
+
