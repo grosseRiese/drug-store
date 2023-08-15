@@ -6,7 +6,6 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class DrugService {
- // private cachedData$: BehaviorSubject<IDrug> = new BehaviorSubject<IDrug>([]);
   private cachedData$: BehaviorSubject<IDrug[]> = new BehaviorSubject<IDrug[]>([]);
 
   constructor() { }
