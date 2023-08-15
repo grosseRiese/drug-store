@@ -9,7 +9,6 @@ import { CollapseButtonComponent } from './shared/components/buttons/collapse-bu
 import { AuthDirective } from './shared/directives/auth.directive';
 import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
 import { SafePipe } from './shared/pipes/safe.pipe';
-import { PublicModule } from './modules/public/public.module';
 import { HeaderComponent } from './core/header/header.component';
 
 
