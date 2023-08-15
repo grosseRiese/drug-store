@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { IDrug } from '../models/idrug';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DrugService {
   private cachedData$: BehaviorSubject<IDrug[]> = new BehaviorSubject<IDrug[]>([]);
+
+  private inputSignal$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor() { }
   
@@ -26,4 +28,30 @@ export class DrugService {
     //return of(this.drugs);
     return this.cachedData$.asObservable();
   }
+
+   // Method to update the input signal
+  updateInputSignal(input: string): void {
+    this.inputSignal$.next(input);
+  }
+   // Method to get the input signal as an observable
+  getInputSignal(): Observable<string> {
+    return this.inputSignal$.asObservable();
+  }
+
+  /*
+  getDrugsWithSignal(): Observable<IDrug[]> {
+    return combineLatest([
+      this.getInputSignal(),
+      this.getDrugs()
+    ]).pipe(
+      switchMap(([inputSignal, drugs]) => {
+        // Filter drugs based on inputSignal (for example, drug.name)
+        const filteredDrugs = drugs.filter(drug => drug.name.includes(inputSignal));
+        console.log("filteredDrugs: ",filteredDrugs);
+        return of(filteredDrugs);
+      })
+    );
+  }
+  */
+
 }
