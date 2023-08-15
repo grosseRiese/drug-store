@@ -6,30 +6,22 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { CartComponent } from './components/cart/cart.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-import { ButtonModule } from 'primeng/button';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DropdownModule } from 'primeng/dropdown';
+
+
 
 @NgModule({
   declarations: [
     PublicComponent,
-    HomeComponent,
-    SearchFilterPipe,
+    HomeComponent, 
     CartComponent,
+    SearchFilterPipe,
     
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    
-    BrowserAnimationsModule,
-    ButtonModule,
-    DropdownModule,
   ],
   exports:[
     RouterModule,
