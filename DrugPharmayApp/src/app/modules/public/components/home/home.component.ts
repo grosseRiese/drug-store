@@ -5,6 +5,7 @@ import { IDrug } from '../../models/idrug';
 import { CartService } from '../../services/cart.service';
 import { DrugService } from '../../services/drug.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,7 +13,9 @@ import { DrugService } from '../../services/drug.service';
 })
 export class HomeComponent implements OnInit{
   public drugs: IDrug[] = [];
-  //selectedDrug: string ="";
+
+  selectedDrug: IDrug | undefined;
+
   selectedDrugForm!: FormGroup;
 
   constructor(private drugService: DrugService, private cartService: CartService) {}
