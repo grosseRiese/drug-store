@@ -15,6 +15,10 @@ export class HomeComponent implements OnInit{
   public drugs: IDrug[] = [];
   selectedDrugForm!: FormGroup;
 
+  inputValue: string ='';
+
+ 
+
   constructor(private drugService: DrugService, private cartService: CartService) {}
 
   ngOnInit(): void {
@@ -23,22 +27,34 @@ export class HomeComponent implements OnInit{
       selectedDrugQuantity: new FormControl(0, [Validators.required, Validators.min(1)]), } );
       
     this.loadDrugsList();
+
+    this.selectedDrugForm.get('selectedDrugName')?.valueChanges.subscribe(value => {
+      this.inputValue = value;
+      this.drugService.updateInputSignal(value);
+      console.log("Value: ",value);
+    });
+
   }
 
   loadDrugsList():void {
     this.drugService.getDrugs().subscribe({
       next:(data) => {
-
         this.drugs = data;
-        console.log("Drugs: ", this.drugs);
-        console.log("SelectedDrugForm [selectedDrugName]: ",this.selectedDrugForm.value.selectedDrugName);
-        console.log("SelectedDrugForm [selectedDrugQuantity]: ",this.selectedDrugForm.value.selectedDrugQuantity);
+        console.log('Data:',data);
       },
       error: (error) => {
         console.error(error);
       }
     });
   }
+  /*
+  onInputValueChanged(value: string): void {
+    this.inputValue = value;
+    this.drugService.updateInputSignal(value);
+  }
+  */
+
+  
 
 }
 
