@@ -9,6 +9,9 @@ import { CartComponent } from './components/cart/cart.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+import { ButtonModule } from 'primeng/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -17,13 +20,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SearchFilterPipe,
     CartComponent,
     
-    
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    
+    BrowserAnimationsModule,
+    ButtonModule,
+    DropdownModule,
   ],
   exports:[
     RouterModule,
