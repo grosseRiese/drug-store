@@ -17,7 +17,6 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
-//import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
@@ -32,7 +31,6 @@ import { DockModule } from 'primeng/dock';
 import { DragDropModule } from 'primeng/dragdrop';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { EditorModule } from 'primeng/editor';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
@@ -115,13 +113,11 @@ import { BrowserModule } from '@angular/platform-browser';
     
     AvatarModule,
     AvatarGroupModule,
-    //BrowserModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
     AccordionModule,
     AutoCompleteModule,
-    //BrowserAnimationsModule,
     BadgeModule,
     BreadcrumbModule,
     BlockUIModule,
@@ -129,7 +125,6 @@ import { BrowserModule } from '@angular/platform-browser';
     CalendarModule,
     CarouselModule,
     CascadeSelectModule,
-    //ChartModule,
     CheckboxModule,
     ChipsModule,
     ChipModule,
@@ -144,7 +139,6 @@ import { BrowserModule } from '@angular/platform-browser';
     DragDropModule,
     DropdownModule,
     DynamicDialogModule,
-    //EditorModule,
     FieldsetModule,
     FileUploadModule,
     GalleriaModule,
