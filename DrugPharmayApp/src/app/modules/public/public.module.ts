@@ -17,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { ChartModule } from 'primeng/chart';
+//import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
@@ -129,7 +129,7 @@ import { BrowserModule } from '@angular/platform-browser';
     CalendarModule,
     CarouselModule,
     CascadeSelectModule,
-    ChartModule,
+    //ChartModule,
     CheckboxModule,
     ChipsModule,
     ChipModule,
@@ -144,7 +144,7 @@ import { BrowserModule } from '@angular/platform-browser';
     DragDropModule,
     DropdownModule,
     DynamicDialogModule,
-    EditorModule,
+    //EditorModule,
     FieldsetModule,
     FileUploadModule,
     GalleriaModule,
@@ -162,7 +162,7 @@ import { BrowserModule } from '@angular/platform-browser';
     MenubarModule,
     MessageModule,
     MessagesModule,
-    MultiSelectModule,
+    MultiSelectModule, 
     OrganizationChartModule,
     OrderListModule,
     OverlayPanelModule,
