@@ -5,19 +5,22 @@
 
 
 <div class="card flex justify-content-center">
+  <form [formGroup]="selectedDrugForm">
   
-  <p-dropdown [options]="drugs" [(ngModel)]="selectedDrugForm" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Drug">
-      <ng-template pTemplate="selectedItem">
-          <div class="flex align-items-center gap-2" *ngIf="selectedDrugForm">
-              <div>{{ selectedDrugForm }}</div>
-          </div>
-      </ng-template>
-      <ng-template let-drug pTemplate="item">
-          <div class="flex align-items-center gap-2">
-              <div>{{ drug.name }}</div>
-          </div>
-      </ng-template>
-  </p-dropdown>
+    <p-dropdown [options]="drugs"  formControlName="selectedDrugName" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Drug">
+        <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2" *ngIf="selectedDrugForm">
+                <div>{{ selectedDrugForm }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-drug pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <div>{{ drug.name }}</div>
+            </div>
+        </ng-template>
+    </p-dropdown>
+
+  </form>
 </div>
 
 
