@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit{
 
   inputValue: string ='';
 
- 
 
   constructor(private drugService: DrugService, private cartService: CartService) {}
 
@@ -32,6 +31,11 @@ export class HomeComponent implements OnInit{
       this.inputValue = value;
       this.drugService.updateInputSignal(value);
       console.log("Value: ",value);
+    });
+
+    this.selectedDrugForm.get('selectedDrugQuantity')?.valueChanges.subscribe(value => {
+      this.drugService.updateInputQuantitySignal(value);
+      console.log("updateInputQuantitySignal: ",value);
     });
 
   }
