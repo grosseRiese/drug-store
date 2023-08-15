@@ -1,4 +1,5 @@
 <h3> HOME Component...s</h3>
+<!-- 
  <form [formGroup]="selectedDrugForm"> 
   <select formControlName="selectedDrugName">
    <option *ngFor="let item of drugs" [value]="item.name">
@@ -6,6 +7,15 @@
    </option>
   </select>
  </form>
+-->
+
+ <div class="card flex justify-content-center">
+  <p-button label="Check" icon="pi pi-check"></p-button>
+</div>
+
+<div class="card flex justify-content-center">
+ <p-dropdown [options]="drugs" [(ngModel)]="selectedDrug" optionLabel="name"></p-dropdown>
+</div>
 
 <app-cart></app-cart>
 
