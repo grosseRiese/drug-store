@@ -10,6 +10,8 @@ export class DrugService {
 
   private inputSignal$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
+  private inputQuantitySignal$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
   constructor() { }
   
   public drugs:IDrug[] = [
@@ -36,6 +38,15 @@ export class DrugService {
    // Method to get the input signal as an observable
   getInputSignal(): Observable<string> {
     return this.inputSignal$.asObservable();
+  }
+
+     // Method to update the input signal
+  updateInputQuantitySignal(input: number): void {
+      this.inputQuantitySignal$.next(input);
+    }
+   // Method to get the input signal as an observable
+  getInputQuantitySignal(): Observable<number> {
+    return this.inputQuantitySignal$.asObservable();
   }
 
   /*
