@@ -22,6 +22,7 @@ import { HeaderComponent } from './core/header/header.component';
     CapitalizePipe,
     SafePipe,
     HeaderComponent,
+    
   ],
   imports: [
     BrowserModule,
