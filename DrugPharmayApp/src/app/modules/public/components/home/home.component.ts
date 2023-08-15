@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit{
 
         this.drugs = data;
         console.log("Drugs: ", this.drugs);
+        console.log("SelectedDrugForm [selectedDrugName]: ",this.selectedDrugForm.value.selectedDrugName);
+        console.log("SelectedDrugForm [selectedDrugQuantity]: ",this.selectedDrugForm.value.selectedDrugQuantity);
       },
       error: (error) => {
         console.error(error);
