@@ -10,7 +10,7 @@ import { AuthDirective } from './shared/directives/auth.directive';
 import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { HeaderComponent } from './core/header/header.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -29,6 +29,7 @@ import { HeaderComponent } from './core/header/header.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     
   ],
   providers: [],
