@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit{
   selectedDrugForm!: FormGroup;
 
   //inputValue: string ='';
-  errorMessage!:string;//Message[] | undefined;
+  errorMessage: Message[] = [];
 
   constructor(private drugService: DrugService,
     private cartService: CartService,
@@ -62,17 +62,19 @@ export class HomeComponent implements OnInit{
     const drugName =this.selectedDrugForm.get('selectedDrugName')?.value.name; 
     const quantity = this.selectedDrugForm.get('selectedDrugQuantity')?.value;
 
-    if (this.orderService.isDrugAvailable(drugName, quantity)) {
-
-      // Handle successful order addition
-      this.errorMessage =''; 
+    //console.log("Home.ts: ",drugName);
+    //console.log("Home.ts: ",quantity);
+    
+    if(this.orderService.isDrugAvailable(drugName,quantity)){
+      this.errorMessage =[]; 
       this.messageService.add({ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' });
-
-      // Your code to add the order to the table
-    } else {
-      this.errorMessage = `${drugName} ${quantity} is not available`;
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: this.errorMessage });
+        console.log("Success...");
+    }else{
+      this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
+      this.messageService.add(this.errorMessage[0]);
+      console.log("Error..X..");
     }
+
   }
 
   
