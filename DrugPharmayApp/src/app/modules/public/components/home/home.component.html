@@ -29,7 +29,7 @@
 
   </form>
   <!-- <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p> -->
-    <div class="card" >
+    <div class="card" *ngIf="errorMessage">
         <p-messages [value]="errorMessage" [closable]="true" ></p-messages>
     </div>
 </div>
