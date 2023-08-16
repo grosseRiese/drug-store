@@ -49,20 +49,4 @@ export class DrugService {
     return this.inputQuantitySignal$.asObservable();
   }
 
-  /*
-  getDrugsWithSignal(): Observable<IDrug[]> {
-    return combineLatest([
-      this.getInputSignal(),
-      this.getDrugs()
-    ]).pipe(
-      switchMap(([inputSignal, drugs]) => {
-        // Filter drugs based on inputSignal (for example, drug.name)
-        const filteredDrugs = drugs.filter(drug => drug.name.includes(inputSignal));
-        console.log("filteredDrugs: ",filteredDrugs);
-        return of(filteredDrugs);
-      })
-    );
-  }
-  */
-
 }
