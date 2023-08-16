@@ -29,7 +29,8 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
     this.selectedDrugForm = new FormGroup({
       selectedDrugName: new FormControl('', [Validators.required]),
-      selectedDrugQuantity: new FormControl(0, [Validators.required, Validators.min(1)]), } );
+      selectedDrugQuantity: new FormControl(0, [Validators.required, Validators.min(1)])
+    });
       
     this.loadDrugsList();
 
@@ -58,6 +59,18 @@ export class HomeComponent implements OnInit{
     });
   }
 
+  isAddButtonVisible(): boolean {
+    const selectedDrugControl = this.selectedDrugForm.get('selectedDrugName');
+    if (!selectedDrugControl || selectedDrugControl.value === null) {
+      return false;
+    }
+  
+    const drugName = this.selectedDrugForm.get('selectedDrugName')?.value.name;
+    const quantity = this.selectedDrugForm.get('selectedDrugQuantity')?.value;
+
+    return this.orderService.isDrugAvailable(drugName, quantity);
+  }
+
   addOrder(){
     const drugName =this.selectedDrugForm.get('selectedDrugName')?.value.name; 
     const quantity = this.selectedDrugForm.get('selectedDrugQuantity')?.value;
@@ -65,10 +78,12 @@ export class HomeComponent implements OnInit{
     //console.log("Home.ts: ",drugName);
     //console.log("Home.ts: ",quantity);
     
+
     if(this.orderService.isDrugAvailable(drugName,quantity)){
       this.errorMessage =[]; 
       this.messageService.add({ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' });
         console.log("Success...");
+
     }else{
       this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
       this.messageService.add(this.errorMessage[0]);
@@ -76,8 +91,6 @@ export class HomeComponent implements OnInit{
     }
 
   }
-
-  
 
 }
 
