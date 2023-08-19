@@ -29,9 +29,9 @@ export class HomeComponent implements OnInit{
     expireDate: new Date(),
   };
 
-  itemsInCart: IDrug[] = [];
+  drugId:number = 0;
+  drupPrice : number = 0;
 
-  //inputValue: string ='';
   errorMessage: Message[] = [];
 
   constructor(private drugService: DrugService,
@@ -48,9 +48,22 @@ export class HomeComponent implements OnInit{
     this.loadDrugsList();
 
     this.selectedDrugForm.get('selectedDrugName')?.valueChanges.subscribe(value => {
-      //this.inputValue = value;
       this.drugService.updateInputSignal(value);
       console.log("Value: ",value);
+
+       // Find the selected drug by its name
+    const selectedDrug = this.drugs.find(drug => drug.name === value.name);
+    
+    if (value && value.name) {
+
+        if (selectedDrug) {
+          // Update the cartItem price based on the selected drug's price
+          this.drugId = selectedDrug.id;
+          this.drupPrice = selectedDrug.price;
+          console.log(this.cartItem.id + ' ' + this.cartItem.price);
+        }
+      }
+
     });
 
     this.selectedDrugForm.get('selectedDrugQuantity')?.valueChanges.subscribe(value => {
@@ -97,18 +110,17 @@ export class HomeComponent implements OnInit{
       this.messageService.add({ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' });
         console.log("Success...");
 
-        /*
-
         this.cartItem = {
-          id:0,
           drugName: drugName,
           quantity: quantity,
-          price : 0,
-          isAvailable:false,
-          totalPrice:6*quantity,
-          expireDate:new Date(),
+          price: this.drupPrice, 
+          id: this.drugId, 
+          isAvailable: true, 
+          totalPrice: this.drupPrice * quantity, 
+          expireDate: new Date(), 
         };
-        this.cartService.addToCart(this.cartItem);*/
+    
+        this.orderService.addToCart(this.cartItem);
 
     }else{
       this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
