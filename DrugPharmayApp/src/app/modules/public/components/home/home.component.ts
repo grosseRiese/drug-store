@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit{
 
   errorMessage: Message[] = [];
 
+
   constructor(private drugService: DrugService,
     private cartService: CartService,
     private orderService: OrderService,
@@ -97,6 +98,7 @@ export class HomeComponent implements OnInit{
     return this.orderService.isDrugAvailable(drugName, quantity);
   }
 
+  //addOrderToCart
   addOrder(){
     const drugName =this.selectedDrugForm.get('selectedDrugName')?.value.name; 
     const quantity = this.selectedDrugForm.get('selectedDrugQuantity')?.value;
@@ -107,20 +109,24 @@ export class HomeComponent implements OnInit{
 
     if(this.orderService.isDrugAvailable(drugName,quantity)){
       this.errorMessage =[]; 
-      this.messageService.add({ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' });
+        
+          this.cartItem = {
+            drugName: drugName,
+            quantity: quantity,
+            price: this.drupPrice, 
+            id: this.drugId, 
+            isAvailable: true, 
+            totalPrice: this.drupPrice * quantity, 
+            expireDate: new Date(), 
+          };
+      
+          // Drug is not added before
+          //this.addedDrugs.push(drugName);
+          
+          this.orderService.addToCart(this.cartItem);
+      
+        this.messageService.add({ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' });
         console.log("Success...");
-
-        this.cartItem = {
-          drugName: drugName,
-          quantity: quantity,
-          price: this.drupPrice, 
-          id: this.drugId, 
-          isAvailable: true, 
-          totalPrice: this.drupPrice * quantity, 
-          expireDate: new Date(), 
-        };
-    
-        this.orderService.addToCart(this.cartItem);
 
     }else{
       this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
@@ -128,7 +134,22 @@ export class HomeComponent implements OnInit{
       console.log("Error..X..");
     }
 
+  }//End of addOrder
+
+  /*
+  isDrugDuplicated(drugName: string): boolean {
+    const isDuplicated = this.addedDrugs.includes(drugName);
+    if (isDuplicated) {
+      setTimeout(() => {
+        const index = this.addedDrugs.indexOf(drugName);
+        if (index !== -1) {
+          this.addedDrugs.splice(index, 1);
+        }
+      }, 3000); // 3 seconds in milliseconds
+    }
+    return isDuplicated;
   }
+  */
 
 }
 
