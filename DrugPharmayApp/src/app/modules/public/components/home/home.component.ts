@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { IDrug } from '../../models/idrug';
@@ -6,7 +6,7 @@ import { CartService } from '../../services/cart.service';
 import { DrugService } from '../../services/drug.service';
 import { OrderService } from '../../services/order.service';
 import { Message, MessageService } from 'primeng/api';
-import { CartItem } from '../../models/cart-item';
+import { ICartItem } from '../../models/cart-item';
 
 
 @Component({
@@ -18,6 +18,18 @@ import { CartItem } from '../../models/cart-item';
 export class HomeComponent implements OnInit{
   public drugs: IDrug[] = [];
   selectedDrugForm!: FormGroup;
+
+  cartItem:ICartItem = {
+    id: 0,
+    drugName: '',
+    quantity: 0,
+    price: 0,
+    isAvailable: false,
+    totalPrice: 0,
+    expireDate: new Date(),
+  };
+
+  itemsInCart: IDrug[] = [];
 
   //inputValue: string ='';
   errorMessage: Message[] = [];
@@ -86,17 +98,17 @@ export class HomeComponent implements OnInit{
         console.log("Success...");
 
         /*
-        const cartItem: CartItem = {
+
+        this.cartItem = {
           id:0,
           drugName: drugName,
           quantity: quantity,
-          price : price
+          price : 0,
           isAvailable:false,
-          totalPrice:price*quantity
+          totalPrice:6*quantity,
+          expireDate:new Date(),
         };
-    
-        this.cartService.addToCart(cartItem);
-        */
+        this.cartService.addToCart(this.cartItem);*/
 
     }else{
       this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
