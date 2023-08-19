@@ -1,1 +1,4 @@
 <p>cart works!</p>
+<div *ngFor="let cartItem of cartItems | async">
+ {{cartItem.id}} : - {{ cartItem.drugName }} - {{ cartItem.quantity }} - 
+ {{cartItem.price}} - {{cartItem.totalPrice}} - {{ cartItem.expireDate | date:'dd/MM/yyyy' }}
