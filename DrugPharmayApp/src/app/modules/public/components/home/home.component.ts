@@ -6,6 +6,7 @@ import { CartService } from '../../services/cart.service';
 import { DrugService } from '../../services/drug.service';
 import { OrderService } from '../../services/order.service';
 import { Message, MessageService } from 'primeng/api';
+import { CartItem } from '../../models/cart-item';
 
 
 @Component({
@@ -83,6 +84,19 @@ export class HomeComponent implements OnInit{
       this.errorMessage =[]; 
       this.messageService.add({ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' });
         console.log("Success...");
+
+        /*
+        const cartItem: CartItem = {
+          id:0,
+          drugName: drugName,
+          quantity: quantity,
+          price : price
+          isAvailable:false,
+          totalPrice:price*quantity
+        };
+    
+        this.cartService.addToCart(cartItem);
+        */
 
     }else{
       this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
