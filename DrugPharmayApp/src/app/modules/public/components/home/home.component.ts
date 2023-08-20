@@ -108,8 +108,9 @@ export class HomeComponent implements OnInit{
     
 
     if(this.orderService.isDrugAvailable(drugName,quantity)){
+
       this.errorMessage =[]; 
-        
+
           this.cartItem = {
             drugName: drugName,
             quantity: quantity,
@@ -119,14 +120,10 @@ export class HomeComponent implements OnInit{
             totalPrice: this.drupPrice * quantity, 
             expireDate: new Date(), 
           };
-      
-          // Drug is not added before
-          //this.addedDrugs.push(drugName);
-          
-          this.orderService.addToCart(this.cartItem);
-      
+            
+        this.orderService.addToCart(this.cartItem);
+        // Display a message for successful addition
         this.messageService.add({ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' });
-        console.log("Success...");
 
     }else{
       this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
@@ -136,20 +133,6 @@ export class HomeComponent implements OnInit{
 
   }//End of addOrder
 
-  /*
-  isDrugDuplicated(drugName: string): boolean {
-    const isDuplicated = this.addedDrugs.includes(drugName);
-    if (isDuplicated) {
-      setTimeout(() => {
-        const index = this.addedDrugs.indexOf(drugName);
-        if (index !== -1) {
-          this.addedDrugs.splice(index, 1);
-        }
-      }, 3000); // 3 seconds in milliseconds
-    }
-    return isDuplicated;
-  }
-  */
 
 }
 
