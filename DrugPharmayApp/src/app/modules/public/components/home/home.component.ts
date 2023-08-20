@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit{
             quantity: quantity,
             price: this.drupPrice, 
             id: this.drugId, 
-            isAvailable: true, 
+            isAvailable: quantity > 0, 
             totalPrice: this.drupPrice * quantity, 
             expireDate: new Date(), 
           };
