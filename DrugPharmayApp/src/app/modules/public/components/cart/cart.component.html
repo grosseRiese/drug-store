@@ -7,30 +7,85 @@
 
 
 <div class="card">
-  <p-table *ngIf="cartItems$ | async as cartItems" [value]="cartItems" [tableStyle]="{ 'min-width': '50rem' }">
+  <p-table 
+  *ngIf="cartItems$ | async as cartItems" 
+  [value]="cartItems" 
+  [tableStyle]="{ 'min-width': '5rem' }" dataKey="id">
+  
       <ng-template pTemplate="header">
           <tr>
               <th>Code</th>
-              <th>Name</th>
-              <th>Quantity</th>
+              <th style="width:20%">Name</th>
+              <th style="width:10%">Quantity</th>
+              <th>Drug Status</th>
               <th>Price</th>
               <th>Total Price</th>
               <th>Expire Date</th>
           </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-item>
+      <ng-template pTemplate="body" let-item let-editing="editing">
           <tr>
               <td>{{ item.id }}</td>
-              <td>{{ item.drugName  }}</td>
-              <td>{{ item.quantity }}</td>
+              <td [pEditableColumn]="item.drugName" pEditableColumnField="drugName">
+
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="item.drugName" required />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{ item.drugName  }}
+                    </ng-template>
+                </p-cellEditor>
+              
+              </td>
+
+              <!-- End dropdown ...etc
+                <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown [options]="cartItems$" appendTo="body" [(ngModel)]="item.drugName" [style]="{'width':'100%'}"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{item.drugName}}
+                        </ng-template>
+                    </p-cellEditor>
+              -->
+
+
+
+              <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="item.quantity" />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{ item.quantity }}
+                    </ng-template>
+                </p-cellEditor>
+
+              </td>
+              <td>
+                <p-tableCheckbox [value]="item.isAvailable"></p-tableCheckbox>
+                {{ item.isAvailable }}
+              </td>
               <td>{{ item.price }}</td>
-              <td>{{ item.totalPrice }}</td>
+              <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
           </tr>
       </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total Price:{{totalSum | currency:'NIS ':'symbol':'1.2-2'}}</td>
+        </tr>
+    </ng-template>
   </p-table>
 </div>
 
-<div class="total-sum">
-  Total Sum: {{ totalSum | currency:'USD':'symbol':'1.2-2' }}
+<div class="flex justify-end">
+  Total Sum: {{ totalSum | currency:'NIS ':'symbol':'1.2-2' }}
 </div>
