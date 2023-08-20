@@ -14,9 +14,13 @@ export class CartComponent {
   totalSum: number = 0; // Initialize the total sum
 
   constructor( public orderService:OrderService) {
+    //this.cartItems$ = this.orderService.getCartItems(); 
+
     this.cartItems$.subscribe((items) => {
       this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
     });
+
+ 
 
   }
 }
