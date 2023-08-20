@@ -27,7 +27,6 @@
           <tr>
               <td>{{ item.id }}</td>
               <td [pEditableColumn]="item.drugName" pEditableColumnField="drugName">
-
                 <p-cellEditor>
                     <ng-template pTemplate="input">
                         <input pInputText type="text" [(ngModel)]="item.drugName" required />
@@ -36,19 +35,25 @@
                         {{ item.drugName  }}
                     </ng-template>
                 </p-cellEditor>
-              
-              </td>
+
 
               <!-- End dropdown ...etc
                 <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-dropdown [options]="cartItems$" appendTo="body" [(ngModel)]="item.drugName" [style]="{'width':'100%'}"></p-dropdown>
+                            <p-dropdown [options]="cartItems$ | async" appendTo="body" [(ngModel)]="item.drugName" [style]="{'width':'100%'}"></p-dropdown>
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{item.drugName}}
                         </ng-template>
                     </p-cellEditor>
-              -->
+                  -->
+
+              
+
+              
+              </td>
+
+              
 
 
 
@@ -64,9 +69,17 @@
 
               </td>
               <td>
-                <p-tableCheckbox [value]="item.isAvailable"></p-tableCheckbox>
-                {{ item.isAvailable }}
+                <input type="checkbox" 
+                [ngClass]="{'customize-success': item.isAvailable, 'bg-danger': !item.isAvailable}"
+              
+                [checked]="item.isAvailable" disabled />
+                <span *ngIf="item.isAvailable" class="customize-success text-sm"> Available</span>
+                <span *ngIf="!item.isAvailable" class="customize-danger text-xs"> Not Available</span>
+
+                <!-- <p-tableCheckbox [value]="item.isAvailable" > </p-tableCheckbox> -->
+                
               </td>
+              
               <td>{{ item.price }}</td>
               <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
