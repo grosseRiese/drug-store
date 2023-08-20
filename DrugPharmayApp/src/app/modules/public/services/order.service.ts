@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { DrugService } from './drug.service';
 import { IDrug } from '../models/idrug';
 import { ICartItem } from '../models/cart-item';
+import { MessageService } from 'primeng/api';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,10 @@ export class OrderService {
   private inputQuantitySignal$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   drugs: IDrug[] = this.drugService.drugs;
-  
-  constructor(private drugService:DrugService) {
+
+  constructor(private drugService:DrugService,
+    private cartService:CartService,
+    private messageService: MessageService) {
 
      // Subscribe to input changes and update button availability
     this.inputSignal$.subscribe(drugName => {
@@ -53,7 +57,7 @@ export class OrderService {
    // Check if a drug quantity is available
   isDrugAvailable(drugName: string, quantity: number): boolean {
     const drug = this.drugs.find(d => d.name === drugName);
-    
+
     if (drug && quantity !=0) {
       return quantity <= drug.quantity; // Check if requested quantity is less than or equal to available quantity
     }
@@ -62,9 +66,33 @@ export class OrderService {
   }
 
   addToCart(cartItem: ICartItem): void {
+  
     const currentCartItems = this.cartItems$.value;
+
+    if (currentCartItems.some(item => item.drugName === cartItem.drugName)) {
+
+      // Drug is already added
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Duplicate Drug',
+        detail: 'This drug has already been added to the cart.'
+      });
+      return;
+    }
+
     this.cartItems$.next([...currentCartItems, cartItem]);
     this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
+
+    console.log(" cart-service success --> currentCartItems: ", currentCartItems);
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Order Added',
+      detail: 'Order successfully added to the cart.'
+    });
+
+    
+
   }
 
   updateQuantityInOriginalData(drugName: string, quantity: number): void {
@@ -77,6 +105,5 @@ export class OrderService {
   getCartItems(): BehaviorSubject<ICartItem[]> {
     return this.cartItems$;
   }
-
 
 }
