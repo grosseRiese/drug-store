@@ -99,17 +99,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 
 
+
 @NgModule({
   declarations: [
     PublicComponent,
     HomeComponent, 
     CartComponent,
-    
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
-
     
     AvatarModule,
     AvatarGroupModule,
@@ -202,6 +201,6 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   exports:[
     RouterModule,
-  ]
+  ],
 })
 export class PublicModule { }
