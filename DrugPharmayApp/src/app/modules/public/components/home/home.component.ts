@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit{
     if(this.orderService.isDrugAvailable(drugName,quantity)){
 
       this.errorMessage =[]; 
-
+      
           this.cartItem = {
             drugName: drugName,
             quantity: quantity,
