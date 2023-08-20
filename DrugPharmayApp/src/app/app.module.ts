@@ -11,6 +11,8 @@ import { CapitalizePipe } from './shared/pipes/capitalize.pipe';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { HeaderComponent } from './core/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CartService } from './modules/public/services/cart.service';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -32,7 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     
   ],
-  providers: [],
+  providers: [CartService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
