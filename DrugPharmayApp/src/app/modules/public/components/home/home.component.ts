@@ -37,6 +37,8 @@ export class HomeComponent implements OnInit,OnDestroy{
     /////////////////////
   drugNameSubscription: Subscription | undefined;
   receivedDrugName: string | undefined;
+  cartItemsSubscription: Subscription | undefined;
+  rows: ICartItem[] = []; // Initialize with an empty array
 
 
   constructor(private drugService: DrugService,
@@ -75,12 +77,13 @@ export class HomeComponent implements OnInit,OnDestroy{
       this.drugService.updateInputQuantitySignal(value);
       console.log("updateInputQuantitySignal: ",value);
     });
+
     ////////////////
-  
-    this.drugNameSubscription = this.cartService.getDrugNameChangeObservable().subscribe(({ originalName, newName }) => {
-      this.updateDrugNameInDrugsList(originalName, newName);
-      this.updateDrugNameInCartItems(originalName, newName);
-    });
+    this.cartItemsSubscription = this.cartService
+      .getCartItemsObservable().subscribe((cartItems: ICartItem[]) => {
+            this.rows = cartItems;
+            console.log('New rows:', this.rows); 
+      });
 
   }//EndOf ngOnInit...
 
@@ -148,9 +151,16 @@ export class HomeComponent implements OnInit,OnDestroy{
 
 //////////////////////////////////////////////////////////////////
     ngOnDestroy(): void {
+      /*
       if (this.drugNameSubscription) {
         this.drugNameSubscription.unsubscribe();
       }
+      */
+      if(this.cartItemsSubscription){
+        this.cartItemsSubscription.unsubscribe();
+      }
+
+
     }
     
   updateDrugNameInDrugsList(originalName: string, newName: string): void {
