@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit,OnDestroy{
       
     this.loadDrugsList();
 
-    this.selectedDrugForm.get('selectedDrugName')?.valueChanges.subscribe(value => {
+    this.selectedDrugForm.get('selectedDrugName')?.valueChanges.dsubscribe(value => {
       this.drugService.updateInputSignal(value);
       console.log("Value: ",value);
 
