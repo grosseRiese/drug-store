@@ -26,10 +26,12 @@
       <ng-template pTemplate="body" let-item let-editing="editing">
           <tr>
               <td>{{ item.id }}</td>
+
               <td [pEditableColumn]="item.drugName" pEditableColumnField="drugName">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="item.drugName" required />
+                        <input pInputText type="text" [(ngModel)]="item.drugName" 
+                        (ngModelChange)="onDrugNameChange(item)" required />
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ item.drugName  }}
@@ -37,6 +39,20 @@
                 </p-cellEditor>
 
 
+                <!-- 
+                  <td [pEditableColumn]="item.drugName" pEditableColumnField="drugName">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <input pInputText type="text" [(ngModel)]="item.drugName" 
+                                (ngModelChange)="onDrugNameChange(item)" required />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ item.drugName }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+
+                -->
               <!-- End dropdown ...etc
                 <p-cellEditor>
                         <ng-template pTemplate="input">
