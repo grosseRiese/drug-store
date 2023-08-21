@@ -6,6 +6,11 @@
 -->
 
 
+<!--
+    *ngIf="rows.length > 0; else noDataTemplate" 
+  [value]="rows" 
+-->
+
 <div class="card">
   <p-table 
   *ngIf="cartItems$ | async as cartItems" 
