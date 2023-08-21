@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { Observable, Subscription, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { IDrug } from '../../models/idrug';
 import { CartService } from '../../services/cart.service';
 import { DrugService } from '../../services/drug.service';
@@ -15,7 +15,7 @@ import { ICartItem } from '../../models/cart-item';
   styleUrls: ['./home.component.css'],
   providers: [MessageService]
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit,OnDestroy{
   public drugs: IDrug[] = [];
   selectedDrugForm!: FormGroup;
 
@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit{
   drupPrice : number = 0;
 
   errorMessage: Message[] = [];
+
+    /////////////////////
+  drugNameSubscription: Subscription | undefined;
+  receivedDrugName: string | undefined;
 
 
   constructor(private drugService: DrugService,
@@ -71,8 +75,14 @@ export class HomeComponent implements OnInit{
       this.drugService.updateInputQuantitySignal(value);
       console.log("updateInputQuantitySignal: ",value);
     });
+    ////////////////
+  
+    this.drugNameSubscription = this.cartService.getDrugNameChangeObservable().subscribe(({ originalName, newName }) => {
+      this.updateDrugNameInDrugsList(originalName, newName);
+      this.updateDrugNameInCartItems(originalName, newName);
+    });
 
-  }
+  }//EndOf ngOnInit...
 
   loadDrugsList():void {
     this.drugService.getDrugs().subscribe({
@@ -132,6 +142,37 @@ export class HomeComponent implements OnInit{
     }
 
   }//End of addOrder
+
+
+
+
+//////////////////////////////////////////////////////////////////
+    ngOnDestroy(): void {
+      if (this.drugNameSubscription) {
+        this.drugNameSubscription.unsubscribe();
+      }
+    }
+    
+  updateDrugNameInDrugsList(originalName: string, newName: string): void {
+    const drugToUpdate = this.drugService.drugs.find(drug => drug.name === originalName);
+    if (drugToUpdate) {
+      drugToUpdate.name = newName;
+      console.log("updateDrugNameInDrugsList: ",newName);
+    }
+  }
+
+  updateDrugNameInCartItems(originalName: string, newName: string): void {
+    const cartItemsToUpdate = this.orderService.getCartItems().value.map(cartItem => {
+      if (cartItem.drugName === originalName) {
+        return { ...cartItem, drugName: newName };
+      }
+
+      console.log("updateDrugNameInCartItems: ",newName);
+      return cartItem;
+    });
+
+    this.orderService.updateCartItems(cartItemsToUpdate);
+  }
 
 
 }
