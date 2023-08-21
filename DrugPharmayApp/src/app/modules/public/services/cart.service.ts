@@ -1,7 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { IDrug } from '../models/idrug';
 import { DrugService } from './drug.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ICartItem } from '../models/cart-item';
 import { MessageService } from 'primeng/api';
 
@@ -10,6 +10,9 @@ import { MessageService } from 'primeng/api';
 })
 export class CartService {
   private cartItems$: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
+  
+  ///////
+  private drugNameChangeSubject: Subject<{ originalName: string; newName: string }> = new Subject();
 
   constructor(private drugService:DrugService,
     private messageService: MessageService) { }
@@ -22,5 +25,16 @@ export class CartService {
     const currentCartItems = this.cartItems$.value;
     this.cartItems$.next([...currentCartItems, cartItem]);
   }
+
+///////////////////////////
+
+  sendDrugNameChange(originalName: string, newName: string): void {
+    this.drugNameChangeSubject.next({ originalName, newName });
+  }
+
+  getDrugNameChangeObservable() {
+    return this.drugNameChangeSubject.asObservable();
+  }
+
 
 }
