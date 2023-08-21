@@ -103,7 +103,12 @@ export class OrderService {
   }
 
   getCartItems(): BehaviorSubject<ICartItem[]> {
+    console.log("getCartItems: ",this.cartItems$);
     return this.cartItems$;
+  }
+
+  updateCartItems(updatedCartItems: ICartItem[]): void {
+    this.cartItems$.next(updatedCartItems);
   }
 
 }
