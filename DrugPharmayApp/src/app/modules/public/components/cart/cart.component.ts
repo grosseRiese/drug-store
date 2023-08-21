@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { ICartItem } from '../../models/cart-item';
 import { OrderService } from '../../services/order.service';
 import { CartService } from '../../services/cart.service';
@@ -30,10 +30,20 @@ export class CartComponent {
 
 
   onDrugNameChange(item: ICartItem): void {
-    const originalDrugName = item.drugName;
-    const newDrugName = item.drugName; // Assuming the drug name is updated in the template
+     // Update the cart items
+    const updatedCartItems$ = this.cartService.getCartItemsObservable().pipe(
+      take(1), // Take one emission to ensure the update is atomic
+      map(cartItems => {
+        return cartItems.map(cartItem => {
+          if (cartItem.id === item.id) {
+            return { ...cartItem, drugName: item.drugName };
+          }
+          return cartItem;
+        });
+      })
+    );
 
-    this.cartService.sendDrugNameChange(originalDrugName, newDrugName);
+    this.cartService.updateCartItems(updatedCartItems$);
   }
 
   getDrugNameChangeObservable(): Observable<{ originalName: string; newName: string }> {
