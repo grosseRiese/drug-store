@@ -18,6 +18,10 @@
         </ng-template>
     </p-dropdown>
 
+    <div *ngIf="selectedDrugForm.get('selectedDrugName')?.hasError('notAvailable')" class="customize-danger text-xs">
+      Drug is not available in the required quantity
+    </div>
+
     <input
       class="border rounded p-3 shadow mt-2 w-14 ml-3" 
       type="number"
