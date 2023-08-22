@@ -109,7 +109,6 @@ import { BrowserModule } from '@angular/platform-browser';
   imports: [
     CommonModule,
     PublicRoutingModule,
-    
     AvatarModule,
     AvatarGroupModule,
     FormsModule,
