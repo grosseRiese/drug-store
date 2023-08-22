@@ -70,7 +70,6 @@ export class HomeComponent implements OnInit,OnDestroy{
           console.log(this.cartItem.id + ' ' + this.cartItem.price);
         }
       }
-
     });
 
     this.selectedDrugForm.get('selectedDrugQuantity')?.valueChanges.subscribe(value => {
@@ -79,11 +78,10 @@ export class HomeComponent implements OnInit,OnDestroy{
     });
 
     ////////////////
-    this.cartItemsSubscription = this.cartService
-      .getCartItemsObservable().subscribe((cartItems: ICartItem[]) => {
-            this.rows = cartItems;
-            console.log('New rows:', this.rows); 
-      });
+    this.cartItemsSubscription = this.cartService.getCartItems().subscribe(cartItems => {
+      this.rows = cartItems;
+      this.updateAddButtonAvailability();
+    });
 
   }//EndOf ngOnInit...
 
@@ -146,21 +144,12 @@ export class HomeComponent implements OnInit,OnDestroy{
 
   }//End of addOrder
 
-
-
-
 //////////////////////////////////////////////////////////////////
     ngOnDestroy(): void {
-      /*
-      if (this.drugNameSubscription) {
-        this.drugNameSubscription.unsubscribe();
-      }
-      */
+    
       if(this.cartItemsSubscription){
         this.cartItemsSubscription.unsubscribe();
       }
-
-
     }
     
   updateDrugNameInDrugsList(originalName: string, newName: string): void {
@@ -183,6 +172,30 @@ export class HomeComponent implements OnInit,OnDestroy{
 
     this.orderService.updateCartItems(cartItemsToUpdate);
   }
+
+  updateAddButtonAvailability(): void {
+    const selectedDrugControl = this.selectedDrugForm.get('selectedDrugName');
+    if (!selectedDrugControl || selectedDrugControl.value === null) {
+      return;
+    }
+  
+    const drugName = selectedDrugControl.value.name;
+    const quantity = this.selectedDrugForm.get('selectedDrugQuantity')?.value;
+  
+    const selectedDrug = this.drugs.find(drug => drug.name === drugName);
+  
+    if (selectedDrug) {
+      if (quantity > 0 && quantity <= selectedDrug.quantity) {
+        // Drug is available in the required quantity
+        this.selectedDrugForm.get('selectedDrugName')?.setErrors(null);
+      } else {
+        // Drug is not available in the required quantity
+        this.selectedDrugForm.get('selectedDrugName')?.setErrors({ notAvailable: true });
+      }
+    }
+  }
+  
+  
 
 
 }
