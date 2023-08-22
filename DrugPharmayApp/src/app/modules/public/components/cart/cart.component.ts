@@ -69,4 +69,39 @@ export class CartComponent implements OnInit {
     this.cartService.updateCartItems(updatedCartItems$);
   }
 
+  updateCartItemDrugName(cartItem: ICartItem, newDrugName: string): void {
+
+    this.cartItems$.pipe(take(1)).subscribe(cartItems => {
+      const updatedCartItems = cartItems.map(item => {
+        if (item.id === cartItem.id) {
+          cartItem.drugName = newDrugName;
+          this.updateCartItemTotalPrice(item);
+        }
+        return item;
+      });
+  
+      this.cartService.updateCartItems(updatedCartItems); 
+    });
+  }
+  
+  updateCartItemQuantity(cartItem: ICartItem, newQuantity: number): void {
+    this.cartItems$.pipe(take(1)).subscribe(cartItems => {
+      const updatedCartItems = cartItems.map(item => {
+        if (item.id === cartItem.id) {
+          item.quantity = newQuantity;
+          this.updateCartItemTotalPrice(item);
+        }
+        return item;
+      });
+  
+      this.cartService.updateCartItems(updatedCartItems); // Update the cart items
+    });
+  }
+  
+  updateCartItemTotalPrice(cartItem: ICartItem): void {
+    cartItem.totalPrice = cartItem.price * cartItem.quantity;
+    
+  }
+  
+
 }
