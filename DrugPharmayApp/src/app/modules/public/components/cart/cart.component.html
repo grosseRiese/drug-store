@@ -1,15 +1,4 @@
 <p>cart works!</p>
-<!-- 
-  <div *ngFor="let cartItem of cartItems$ | async">
-    {{cartItem.id}} : - {{ cartItem.drugName }} - {{ cartItem.quantity }} - 
-    {{cartItem.price}} - {{cartItem.totalPrice}} - {{ cartItem.expireDate | date:'dd/MM/yyyy' }}
--->
-
-
-<!--
-    *ngIf="rows.length > 0; else noDataTemplate" 
-  [value]="rows" 
--->
 
 <div class="card">
   <p-table 
@@ -33,69 +22,21 @@
           <tr>
               <td>{{ item.id }}</td>
 
-              <td [pEditableColumn]="item.drugName" pEditableColumnField="drugName">
-                <p-cellEditor>
-
-                  <ng-template pTemplate="input">
-                    <p-dropdown  [options]="drugNames" [(ngModel)]="item.drugName" field="name"></p-dropdown >
-                  </ng-template>
-                  <!--
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="item.drugName" 
-                        (ngModelChange)="onDrugNameChange(item)" required />
-                    </ng-template>
-                  -->
-                    <ng-template pTemplate="output">
-                        {{ item.drugName  }}
-                    </ng-template>
-                </p-cellEditor>
-
-
-                <!-- 
-                  <td [pEditableColumn]="item.drugName" pEditableColumnField="drugName">
-                      <p-cellEditor>
-                        <ng-template pTemplate="input">
-                          <input pInputText type="text" [(ngModel)]="item.drugName" 
-                                (ngModelChange)="onDrugNameChange(item)" required />
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                          {{ item.drugName }}
-                        </ng-template>
-                      </p-cellEditor>
-                    </td>
-
-                -->
-              <!-- End dropdown ...etc
-                <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <p-dropdown [options]="cartItems$ | async" appendTo="body" [(ngModel)]="item.drugName" [style]="{'width':'100%'}"></p-dropdown>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{item.drugName}}
-                        </ng-template>
-                    </p-cellEditor>
-                  -->
-
-              
-
-              
+              <td>
+                <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="updateCartItemDrugName(item, $event)"></p-dropdown>
               </td>
-
-              
-
-
 
               <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity">
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="item.quantity" />
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{ item.quantity }}
-                    </ng-template>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="number" [(ngModel)]="item.quantity" (ngModelChange)="updateCartItemQuantity(item, $event)" />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ item.quantity }}
+                  </ng-template>
                 </p-cellEditor>
-
               </td>
+
               <td>
                 <input type="checkbox" 
                 [ngClass]="{'customize-success': item.isAvailable, 'bg-danger': !item.isAvailable}"
@@ -112,7 +53,7 @@
               <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
               <td>
-                <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger  p-button-raised" (click)="deleteCartItem(item)"></p-button>
+                <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger" (click)="deleteCartItem(item)"></p-button>
               
 
               </td>
