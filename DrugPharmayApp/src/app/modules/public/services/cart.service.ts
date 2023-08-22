@@ -29,10 +29,14 @@ export class CartService {
     return this.cartItems$.asObservable();
   }
   
-  updateCartItems(updatedCartItems$: Observable<ICartItem[]>): void {
-    updatedCartItems$.subscribe(updatedCartItems => {
+  updateCartItems(updatedCartItems:ICartItem[] | Observable<ICartItem[]>): void {
+    if (updatedCartItems instanceof Observable) {
+      updatedCartItems.subscribe(newCartItems => {
+        this.cartItems$.next(newCartItems);
+      });
+    } else {
       this.cartItems$.next(updatedCartItems);
-    });
+    }
   }
   
 
