@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { ICartItem } from '../../models/cart-item';
 import { OrderService } from '../../services/order.service';
 import { CartService } from '../../services/cart.service';
+import { DrugService } from '../../services/drug.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,15 +11,18 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./cart.component.css'],
 
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
   cartItems$: Observable<ICartItem[]> = this.orderService.getCartItems();
   totalSum: number = 0; // Initialize the total sum
 
   ////////////////////////////////////////////////////////////////
   private drugNameChange$: BehaviorSubject<{ originalName: string; newName: string }> = new BehaviorSubject<{ originalName: string; newName: string }>({ originalName: '', newName: '' });
 
-  
-  constructor( public orderService:OrderService,
+  drugNames: string[] = []; // Array to store drug names for autocomplete
+
+  constructor( 
+    public drugService:DrugService,
+    public orderService:OrderService,
     public cartService:CartService) {
     //this.cartItems$ = this.orderService.getCartItems(); 
 
@@ -28,6 +32,12 @@ export class CartComponent {
     
   }
 
+  ngOnInit(): void {
+    // Fetch drug names and populate the drugNames array
+    this.drugService.getDrugs().subscribe(drugs => {
+      this.drugNames = drugs.map(drug => drug.name);
+    });
+  }
 
   onDrugNameChange(item: ICartItem): void {
      // Update the cart items
@@ -48,6 +58,15 @@ export class CartComponent {
 
   getDrugNameChangeObservable(): Observable<{ originalName: string; newName: string }> {
     return this.drugNameChange$.asObservable();
+  }
+
+  deleteCartItem(item: ICartItem): void {
+    const updatedCartItems$ = this.cartItems$.pipe(
+      take(1),
+      map(cartItems => cartItems.filter(cartItem => cartItem.id !== item.id))
+    );
+  
+    this.cartService.updateCartItems(updatedCartItems$);
   }
 
 }
