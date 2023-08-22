@@ -26,6 +26,7 @@
               <th>Price</th>
               <th>Total Price</th>
               <th>Expire Date</th>
+              <th></th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-item let-editing="editing">
@@ -34,10 +35,16 @@
 
               <td [pEditableColumn]="item.drugName" pEditableColumnField="drugName">
                 <p-cellEditor>
+
+                  <ng-template pTemplate="input">
+                    <p-dropdown  [options]="drugNames" [(ngModel)]="item.drugName" field="name"></p-dropdown >
+                  </ng-template>
+                  <!--
                     <ng-template pTemplate="input">
                         <input pInputText type="text" [(ngModel)]="item.drugName" 
                         (ngModelChange)="onDrugNameChange(item)" required />
                     </ng-template>
+                  -->
                     <ng-template pTemplate="output">
                         {{ item.drugName  }}
                     </ng-template>
@@ -104,10 +111,14 @@
               <td>{{ item.price }}</td>
               <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <p-button label="x" styleClass="p-button-danger" (click)="deleteCartItem(item)"></p-button>
+              </td>
           </tr>
       </ng-template>
       <ng-template pTemplate="footer">
         <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
