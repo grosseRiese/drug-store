@@ -90,9 +90,6 @@ export class OrderService {
       summary: 'Order Added',
       detail: 'Order successfully added to the cart.'
     });
-
-    
-
   }
 
   updateQuantityInOriginalData(drugName: string, quantity: number): void {
@@ -108,7 +105,6 @@ export class OrderService {
 
   updateCartItems(updatedCartItems: ICartItem[]): void {
     this.cartItems$.next(updatedCartItems);
-    console.log("getCartItems: ",this.cartItems$);
   }
 
 }
