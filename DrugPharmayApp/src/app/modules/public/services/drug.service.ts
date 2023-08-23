@@ -49,4 +49,9 @@ export class DrugService {
     return this.inputQuantitySignal$.asObservable();
   }
 
+  getDrugById(id:number){
+    const theDrug = this.drugs.find(drug => drug.id === id);
+    return theDrug;
+  }
+
 }
