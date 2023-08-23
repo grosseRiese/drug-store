@@ -114,7 +114,7 @@ export class OrderService {
       this.cartItems$.next(updatedCartItems);
   }
   
-
+  
   deleteRowById(id: number): void {
     // Get the current cart items
     const currentCartItems = this.cartItems$.value;
@@ -135,6 +135,5 @@ export class OrderService {
       this.cartItems$.next(updatedCartItems);
     }
   }
-  
 
 }
