@@ -24,7 +24,6 @@ export class CartComponent implements OnInit {
     public orderService:OrderService,
     public cartService:CartService,
     private cdr: ChangeDetectorRef,) {
-    //this.cartItems$ = this.orderService.getCartItems(); 
 
     this.cartItems$.subscribe((items) => {
       this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
@@ -40,6 +39,7 @@ export class CartComponent implements OnInit {
   }
 
   onDrugNameChange(item: ICartItem): void {
+
     this.cartService.getCartItemsObservable().pipe(
       take(1),
       map(cartItems => {
@@ -48,7 +48,7 @@ export class CartComponent implements OnInit {
             const newDrug = this.drugService.drugs.find(drug => drug.name === item.drugName);
             console.log('New Drug:', newDrug);
             if (newDrug) {
-              return { ...cartItem, drugName: item.drugName, id: newDrug.id, price: newDrug.price };
+              return { ...cartItem, drugName: item.drugName, id: newDrug.id, price: newDrug.price,isAvailable:newDrug.quantity > 0 };
             }
           }
           return cartItem;
@@ -59,6 +59,8 @@ export class CartComponent implements OnInit {
       this.cartService.updateCartItemsObservable(updatedCartItems);
     });
     
+
+
     /*
      // Update the cart items
     this.cartService.getCartItemsObservable().pipe(
@@ -81,24 +83,25 @@ export class CartComponent implements OnInit {
     const newDrug = this.drugService.drugs.find(drug => drug.name === newDrugName);
 
     if (newDrug) {
-      console.log('Found new drug:', newDrug);
+      console.log('Found new drug:', newDrug);//
 
       const updatedCartItem: ICartItem = {
         ...cartItem,
         drugName: newDrug.name,
         id: newDrug.id,
         price: newDrug.price,
+        isAvailable: newDrug.quantity > 0
       };
-      console.log('Updated cart item:', updatedCartItem);
+      console.log('Updated cart item:', updatedCartItem);///
 
       this.updateCartItemTotalPrice(updatedCartItem);
-
+        const t= updatedCartItem;
       this.cartItems$.pipe(take(1)).subscribe(cartItems => {
         const updatedCartItems = cartItems.map(item =>
-          item.id === updatedCartItem.id ? updatedCartItem : item
+          item.id === t.id ? t : item
         );
 
-        console.log('Updated cart items:', updatedCartItems);
+        console.log('trt cart items:', updatedCartItems);///?
 
         this.cartService.updateCartItemsObservable(updatedCartItems); 
         this.cdr.detectChanges(); // Trigger change detection
@@ -128,5 +131,9 @@ export class CartComponent implements OnInit {
     cartItem.totalPrice = cartItem.price * cartItem.quantity;
   }
   
+  onDeleteRow(id: number): void {
+    this.cartService.deleteRowById(id);
+    this.cartItems$ = this.orderService.getCartItems();
+  }
 
 }
