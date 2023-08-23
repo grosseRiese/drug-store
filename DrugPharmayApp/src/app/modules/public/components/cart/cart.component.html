@@ -43,7 +43,7 @@
               
                 [checked]="item.isAvailable" disabled />
                 <span *ngIf="item.isAvailable" class="customize-success text-sm"> Available</span>
-                <span *ngIf="!item.isAvailable" class="customize-danger text-xs"> Not Available</span>
+                <span *ngIf="!item.isAvailable" class="customize-danger text-xs"> Unavailable</span>
 
                 <!-- <p-tableCheckbox [value]="item.isAvailable" > </p-tableCheckbox> -->
                 
@@ -53,10 +53,12 @@
               <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
               <td>
-                <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger" ></p-button>
-              
+                <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-danger p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
+                |
+                <p-button icon="pi pi-refresh" styleClass="p-button-raised p-button-text p-button-success p-button-sm"></p-button>
 
               </td>
+              
           </tr>
       </ng-template>
       <ng-template pTemplate="footer">
@@ -72,6 +74,10 @@
         </tr>
     </ng-template>
   </p-table>
+
+  <p-button label="Save" icon="pi pi-check" styleClass="p-button-success p-button-sm"></p-button>
+
+  
 </div>
 
 <div class="flex justify-end">
