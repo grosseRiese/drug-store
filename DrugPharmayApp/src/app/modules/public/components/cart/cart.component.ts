@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, map, take } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, switchMap, take } from 'rxjs';
 import { ICartItem } from '../../models/cart-item';
 import { OrderService } from '../../services/order.service';
 import { CartService } from '../../services/cart.service';
@@ -12,7 +12,7 @@ import { DrugService } from '../../services/drug.service';
 
 })
 export class CartComponent implements OnInit {
-  cartItems$: Observable<ICartItem[]> = this.orderService.getCartItems();
+  cartItems$: Observable<ICartItem[]>;// = this.orderService.getCartItems();
   totalSum: number = 0; // Initialize the total sum
 
   ////////////////////////////////////////////////////////////////
@@ -23,24 +23,50 @@ export class CartComponent implements OnInit {
     public orderService:OrderService,
     private cdr: ChangeDetectorRef,) {
 
-    this.cartItems$.subscribe((items) => {
+    this.cartItems$ = this.orderService.getCartItems();
 
+    this.cartItems$.subscribe((items) => {
       this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
     });
     
   }
 
   ngOnInit(): void {
+
     // Fetch drug names and populate the drugNames array
     this.drugService.getDrugs().subscribe(drugs => {
       this.drugNames = drugs.map(drug => drug.name);
     });
+
   }
 
   
-  /* */
+ 
   onDrugNameChange(item: ICartItem): void {
-  
+    console.log('onDrugNameChange called with item:', item);
+
+    this.cartItems$.pipe(
+      take(1),
+      switchMap(cartItems => {
+        const newDrug = this.drugService.drugs.find(drug => drug.name === item.drugName);
+        if (newDrug) {
+          const updatedCartItem = {
+            ...item,
+            drugName: newDrug.name,
+            id: newDrug.id,
+            price: newDrug.price,
+            isAvailable: newDrug.quantity > 0
+          };
+          return of(cartItems.map(cartItem => (cartItem.id === item.id ? updatedCartItem : cartItem)));
+        } else {
+          return of(cartItems); // No change needed
+        }
+      })
+    ).subscribe(updatedCartItems => {
+      this.orderService.updateCartItemsObservable(updatedCartItems);
+    });
+
+  /* 
     this.cartItems$.pipe(
       take(1),
       map(cartItems => {
@@ -59,9 +85,8 @@ export class CartComponent implements OnInit {
       console.log('__Updated Cart Items:', updatedCartItems);
       this.orderService.updateCartItemsObservable(updatedCartItems);
     });
+     */
   } 
- 
-  
 
   updateCartItemDrugName(cartItem: ICartItem, newDrugName: string): void {
     const newDrug = this.drugService.drugs.find(drug => drug.name === newDrugName);
@@ -75,6 +100,7 @@ export class CartComponent implements OnInit {
         id: newDrug.id,
         price: newDrug.price,
         isAvailable: newDrug.quantity > 0
+        
       };
 
       console.log('Updated cart item:', updatedCartItem);///
@@ -88,7 +114,7 @@ export class CartComponent implements OnInit {
 
         console.log('OMG cart items:', updatedCartItems);///?
 
-        this.orderService.updateCartItems(updatedCartItems); 
+        this.orderService.updateCartItemsObservable(updatedCartItems); 
         this.cdr.detectChanges(); // Trigger change detection
 
         
@@ -96,8 +122,6 @@ export class CartComponent implements OnInit {
     }
 
   }
-
-  
   
   updateCartItemQuantity(cartItem: ICartItem, newQuantity: number): void {
     this.cartItems$.pipe(take(1)).subscribe(cartItems => {
