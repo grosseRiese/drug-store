@@ -48,6 +48,7 @@ export class CartService {
     if (itemToDelete) {
       // Restore drug's quantity
       const drug = this.drugService.getDrugById(itemToDelete.id); // You need to implement this method in DrugService
+      console.log("drug deleteRowById: ",drug);
       if (drug) {
         drug.quantity += itemToDelete.quantity;
       }
