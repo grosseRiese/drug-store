@@ -4,21 +4,21 @@ import { DrugService } from './drug.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ICartItem } from '../models/cart-item';
 import { MessageService } from 'primeng/api';
+import { OrderService } from './order.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartItems$: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
-
-  private drugNameChange$: BehaviorSubject<{ originalName: string; newName: string }> = new BehaviorSubject<{ originalName: string; newName: string }>({ originalName: '', newName: '' });
-
+ private cartItems$: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
 
   constructor(private drugService:DrugService,
-    private messageService: MessageService) { }
+    private messageService: MessageService) { 
+    }
 
   getCartItems(): BehaviorSubject<ICartItem[]> {
     return this.cartItems$;
+
   }
 
 ///////////////////////////
@@ -37,14 +37,27 @@ export class CartService {
     }
   }
   
-  /*
-  updateCartItems(updatedCartItems: ICartItem[]): void {
-    this.cartItems$.next(updatedCartItems);
-  }*/
-  
- /* getDrugNameChangeObservable(): Observable<{ originalName: string; newName: string }> {
-    return this.drugNameChange$.asObservable();
+
+  deleteRowById(id: number): void {
+    // Get the current cart items
+    const currentCartItems = this.cartItems$.value;
+      console.log("currentCartItems deleteRowById: ",currentCartItems);
+    // Find the item to be deleted
+    const itemToDelete = currentCartItems.find(item => item.id === id);
+
+    if (itemToDelete) {
+      // Restore drug's quantity
+      const drug = this.drugService.getDrugById(itemToDelete.id); // You need to implement this method in DrugService
+      if (drug) {
+        drug.quantity += itemToDelete.quantity;
+      }
+
+      // Remove the item from the cart
+      const updatedCartItems = currentCartItems.filter(item => item.id !== id);
+      this.cartItems$.next(updatedCartItems);
+    }
   }
-  */
+
+
 
 }
