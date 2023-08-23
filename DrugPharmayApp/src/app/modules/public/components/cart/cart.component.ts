@@ -16,16 +16,15 @@ export class CartComponent implements OnInit {
   totalSum: number = 0; // Initialize the total sum
 
   ////////////////////////////////////////////////////////////////
-
   drugNames: string[] = []; // Array to store drug names for autocomplete
 
   constructor( 
     public drugService:DrugService,
     public orderService:OrderService,
-    public cartService:CartService,
     private cdr: ChangeDetectorRef,) {
 
     this.cartItems$.subscribe((items) => {
+
       this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
     });
     
@@ -38,9 +37,11 @@ export class CartComponent implements OnInit {
     });
   }
 
+  
+  /* */
   onDrugNameChange(item: ICartItem): void {
-
-    this.cartService.getCartItemsObservable().pipe(
+  
+    this.cartItems$.pipe(
       take(1),
       map(cartItems => {
         return cartItems.map(cartItem => {
@@ -55,29 +56,12 @@ export class CartComponent implements OnInit {
         });
       })
     ).subscribe(updatedCartItems => {
-      console.log('Updated Cart Items:', updatedCartItems);
-      this.cartService.updateCartItemsObservable(updatedCartItems);
+      console.log('__Updated Cart Items:', updatedCartItems);
+      this.orderService.updateCartItemsObservable(updatedCartItems);
     });
-    
-
-
-    /*
-     // Update the cart items
-    this.cartService.getCartItemsObservable().pipe(
-      take(1), // Take one emission to ensure the update is atomic
-      map(cartItems => {
-        return cartItems.map(cartItem => {
-          if (cartItem.id === item.id) {
-            return { ...cartItem, drugName: item.drugName };
-          }
-          return cartItem;
-        });
-      })
-    ).subscribe(updatedCartItems => {
-      this.cartService.updateCartItems(updatedCartItems);
-    });
-    */
-  }
+  } 
+ 
+  
 
   updateCartItemDrugName(cartItem: ICartItem, newDrugName: string): void {
     const newDrug = this.drugService.drugs.find(drug => drug.name === newDrugName);
@@ -92,23 +76,25 @@ export class CartComponent implements OnInit {
         price: newDrug.price,
         isAvailable: newDrug.quantity > 0
       };
+
       console.log('Updated cart item:', updatedCartItem);///
 
       this.updateCartItemTotalPrice(updatedCartItem);
-        const t= updatedCartItem;
+      
       this.cartItems$.pipe(take(1)).subscribe(cartItems => {
         const updatedCartItems = cartItems.map(item =>
-          item.id === t.id ? t : item
+          item.id === updatedCartItem.id ? updatedCartItem : item
         );
 
-        console.log('trt cart items:', updatedCartItems);///?
+        console.log('OMG cart items:', updatedCartItems);///?
 
-        this.cartService.updateCartItemsObservable(updatedCartItems); 
+        this.orderService.updateCartItems(updatedCartItems); 
         this.cdr.detectChanges(); // Trigger change detection
 
         
       });
     }
+
   }
 
   
@@ -123,7 +109,7 @@ export class CartComponent implements OnInit {
         return item;
       });
   
-      this.cartService.updateCartItemsObservable(updatedCartItems); // Update the cart items
+      this.orderService.updateCartItemsObservable(updatedCartItems); // Update the cart items
     });
   }
   
@@ -132,7 +118,7 @@ export class CartComponent implements OnInit {
   }
   
   onDeleteRow(id: number): void {
-    this.cartService.deleteRowById(id);
+    this.orderService.deleteRowById(id);
     this.cartItems$ = this.orderService.getCartItems();
   }
 
