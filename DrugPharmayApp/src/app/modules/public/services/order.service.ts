@@ -100,11 +100,41 @@ export class OrderService {
   }
 
   getCartItems(): BehaviorSubject<ICartItem[]> {
+    
     return this.cartItems$;
   }
 
   updateCartItems(updatedCartItems: ICartItem[]): void {
     this.cartItems$.next(updatedCartItems);
   }
+
+  //////*** cartService **** //////
+
+  updateCartItemsObservable(updatedCartItems:ICartItem[] ): void {
+      this.cartItems$.next(updatedCartItems);
+  }
+  
+
+  deleteRowById(id: number): void {
+    // Get the current cart items
+    const currentCartItems = this.cartItems$.value;
+      console.log("currentCartItems deleteRowById: ",currentCartItems);
+    // Find the item to be deleted
+    const itemToDelete = currentCartItems.find(item => item.id === id);
+
+    if (itemToDelete) {
+      // Restore drug's quantity
+      const drug = this.drugService.getDrugById(itemToDelete.id); // You need to implement this method in DrugService
+      console.log("drug deleteRowById: ",drug);
+      if (drug) {
+        drug.quantity += itemToDelete.quantity;
+      }
+
+      // Remove the item from the cart
+      const updatedCartItems = currentCartItems.filter(item => item.id !== id);
+      this.cartItems$.next(updatedCartItems);
+    }
+  }
+  
 
 }
