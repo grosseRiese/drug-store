@@ -23,7 +23,7 @@
               <td>{{ item.id }}</td>
 
               <td>
-                <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="updateCartItemDrugName(item, $event)"></p-dropdown>
+                <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item.drugName)"></p-dropdown>
               </td>
 
               <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity">
