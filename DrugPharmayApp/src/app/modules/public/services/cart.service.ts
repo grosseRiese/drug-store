@@ -11,16 +11,14 @@ import { MessageService } from 'primeng/api';
 export class CartService {
   private cartItems$: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
 
+  private drugNameChange$: BehaviorSubject<{ originalName: string; newName: string }> = new BehaviorSubject<{ originalName: string; newName: string }>({ originalName: '', newName: '' });
+
+
   constructor(private drugService:DrugService,
     private messageService: MessageService) { }
 
   getCartItems(): BehaviorSubject<ICartItem[]> {
     return this.cartItems$;
-  }
-
-  addToCart(cartItem: ICartItem): void {
-    const currentCartItems = this.cartItems$.value;
-    this.cartItems$.next([...currentCartItems, cartItem]);
   }
 
 ///////////////////////////
@@ -29,7 +27,7 @@ export class CartService {
     return this.cartItems$.asObservable();
   }
   
-  updateCartItems(updatedCartItems:ICartItem[] | Observable<ICartItem[]>): void {
+  updateCartItemsObservable(updatedCartItems:ICartItem[] | Observable<ICartItem[]>): void {
     if (updatedCartItems instanceof Observable) {
       updatedCartItems.subscribe(newCartItems => {
         this.cartItems$.next(newCartItems);
@@ -39,5 +37,14 @@ export class CartService {
     }
   }
   
+  /*
+  updateCartItems(updatedCartItems: ICartItem[]): void {
+    this.cartItems$.next(updatedCartItems);
+  }*/
+  
+ /* getDrugNameChangeObservable(): Observable<{ originalName: string; newName: string }> {
+    return this.drugNameChange$.asObservable();
+  }
+  */
 
 }
