@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit,OnDestroy{
     });
 
     ////////////////
-    this.cartItemsSubscription = this.cartService.getCartItems().subscribe(cartItems => {
+    this.cartItemsSubscription = this.orderService.getCartItems().subscribe(cartItems => {
       this.rows = cartItems;
       this.updateAddButtonAvailability();
     });
