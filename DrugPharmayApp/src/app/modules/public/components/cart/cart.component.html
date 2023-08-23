@@ -18,7 +18,7 @@
               <th></th>
           </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-item let-editing="editing">
+      <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing">
           <tr>
               <td>{{ item.id }}</td>
 
@@ -53,9 +53,9 @@
               <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
               <td>
-                <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-danger p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
+                <p-button icon="pi pi-trash" class="customizeBtn" styleClass="p-button-rounded p-button-danger p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
                 |
-                <p-button icon="pi pi-refresh" styleClass="p-button-raised p-button-text p-button-success p-button-sm"></p-button>
+                <p-button icon="pi pi-refresh" styleClass="p-button-raised p-button-text p-button-success p-button-sm" (click)="updateCartItemDrugName(item,item.drugName)"></p-button>
 
               </td>
               
