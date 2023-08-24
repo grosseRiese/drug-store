@@ -21,12 +21,6 @@
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing">
           <tr>
               <td>{{ item.id }}</td>
-            <!--
-              <td>
-                <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item.drugName)"></p-dropdown>
-              </td>
-            -->
-
             <td>
               <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">
                 <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item)"></p-dropdown>
@@ -89,10 +83,4 @@
 
   <p-button label="Save" icon="pi pi-check" styleClass="p-button-success p-button-sm" (click)="saveChanges()" ></p-button>
 
-  
 </div>
-<!-- 
-<div class="flex justify-end">
-  Total Sum: {{ totalSum | currency:'NIS ':'symbol':'1.2-2' }}
-</div>
--->
