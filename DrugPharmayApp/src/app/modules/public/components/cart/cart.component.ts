@@ -133,8 +133,11 @@ export class CartComponent implements OnInit {
     this.editorEnabled  = true; // Set the editor availability to true
   }
 
+  saveChanges(): void {
+    this.cartItems$.pipe(take(1)).subscribe(cartItems => {
+      this.orderService.updateCartItemsObservable(cartItems);
+    });
+  }
   
   
- 
-
 }
