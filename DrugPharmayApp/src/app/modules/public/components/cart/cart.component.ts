@@ -46,13 +46,12 @@ export class CartComponent implements OnInit {
   
  
   onDrugNameChange(item: ICartItem): void {
-    //console.log('onDrugNameChange called with item:', item);
 
     this.cartItems$.pipe(
       take(1),
       switchMap(cartItems => {
         const newDrug = this.drugService.drugs.find(drug => drug.name === item.drugName);
-        console.log("New drug",newDrug,1111111111111111111111111,item);
+        //console.log("New drug",newDrug,-----,item);
         if (newDrug) {
           const updatedCartItem = {
             ...item,
