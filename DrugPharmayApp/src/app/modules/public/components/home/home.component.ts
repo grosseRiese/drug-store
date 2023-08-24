@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit,OnDestroy{
 
     this.selectedDrugForm.get('selectedDrugName')?.valueChanges.subscribe(value => {
       this.drugService.updateInputSignal(value);
-      console.log("Value: ",value);
+      //console.log("Value: ",value);
 
        // Find the selected drug by its name
     const selectedDrug = this.drugs.find(drug => drug.name === value.name);
@@ -67,14 +67,14 @@ export class HomeComponent implements OnInit,OnDestroy{
           // Update the cartItem price based on the selected drug's price
           this.drugId = selectedDrug.id;
           this.drupPrice = selectedDrug.price;
-          console.log(this.cartItem.id + ' ' + this.cartItem.price);
+          //console.log(this.cartItem.id + ' ' + this.cartItem.price);
         }
       }
     });
 
     this.selectedDrugForm.get('selectedDrugQuantity')?.valueChanges.subscribe(value => {
       this.drugService.updateInputQuantitySignal(value);
-      console.log("updateInputQuantitySignal: ",value);
+      //console.log("updateInputQuantitySignal: ",value);
     });
 
     ////////////////
