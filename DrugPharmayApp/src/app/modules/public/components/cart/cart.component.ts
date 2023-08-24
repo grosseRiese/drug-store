@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
   ////////////////////////////////////////////////////////////////
   drugNames: string[] = []; // Array to store drug names for autocomplete
   editorEnabled = false; 
-
+  editId:number =0;
 
   constructor( 
     public drugService:DrugService,
@@ -52,6 +52,7 @@ export class CartComponent implements OnInit {
       take(1),
       switchMap(cartItems => {
         const newDrug = this.drugService.drugs.find(drug => drug.name === item.drugName);
+        console.log("New drug",newDrug,1111111111111111111111111,item);
         if (newDrug) {
           const updatedCartItem = {
             ...item,
@@ -129,7 +130,8 @@ export class CartComponent implements OnInit {
     this.cartItems$ = this.orderService.getCartItems();
   }
 
-  refreshEditor() {
+  refreshEditor(id:number) {
+    this.editId=id;
     this.editorEnabled  = true; // Set the editor availability to true
   }
 
