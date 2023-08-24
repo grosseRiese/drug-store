@@ -21,11 +21,20 @@
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing">
           <tr>
               <td>{{ item.id }}</td>
-
+            <!--
               <td>
                 <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item.drugName)"></p-dropdown>
               </td>
+            -->
 
+            <td>
+              <ng-container *ngIf="editorEnabled; else outputTemplateName">
+                <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item.drugName)"></p-dropdown>
+              </ng-container>
+              <ng-template #outputTemplateName>
+                {{ item.drugName }}
+              </ng-template>
+            </td>
 
               <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity">
                 <ng-container *ngIf="editorEnabled; else outputTemplate">
@@ -81,7 +90,7 @@
     </ng-template>
   </p-table>
 
-  <p-button label="Save" icon="pi pi-check" styleClass="p-button-success p-button-sm"></p-button>
+  <p-button label="Save" icon="pi pi-check" styleClass="p-button-success p-button-sm" ></p-button>
 
   
 </div>
