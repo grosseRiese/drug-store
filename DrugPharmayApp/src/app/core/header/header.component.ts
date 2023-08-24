@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   constructor(public orderService: OrderService) { }
 
   ngOnInit():void {
-     // 
+     //
     this.orderService.getCartItems().subscribe((cartItems) => {
       this.cartItemsLength = cartItems.length;
       // Update cart items length in service
