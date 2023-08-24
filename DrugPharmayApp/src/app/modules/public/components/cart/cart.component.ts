@@ -19,6 +19,9 @@ export class CartComponent implements OnInit {
   drugNames: string[] = []; // Array to store drug names for autocomplete
   editorEnabled = false; 
   editId:number =0;
+  
+  //cartItemsLength: number = 0;
+
 
   constructor( 
     public drugService:DrugService,
@@ -41,10 +44,18 @@ export class CartComponent implements OnInit {
       this.drugNames = drugs.map(drug => drug.name);
     });
 
+    /*
+    // 
+    this.orderService.getCartItems().subscribe((cartItems) => {
+      this.cartItemsLength = cartItems.length;
+      // Update cart items length in service
+      this.orderService.updateCartItemsLength(cartItems.length); 
+
+    });
+    */
+
   }
 
-  
- 
   onDrugNameChange(item: ICartItem): void {
 
     this.cartItems$.pipe(
