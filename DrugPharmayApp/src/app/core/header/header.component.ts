@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from 'src/app/modules/public/services/cart.service';
+import { OrderService } from 'src/app/modules/public/services/order.service';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +8,18 @@ import { CartService } from 'src/app/modules/public/services/cart.service';
 })
 
 export class HeaderComponent implements OnInit {
+  cartItemsLength: number = 0;
 
-  constructor(public cartService: CartService) { }
+  constructor(public orderService: OrderService) { }
 
   ngOnInit():void {
+     // 
+    this.orderService.getCartItems().subscribe((cartItems) => {
+      this.cartItemsLength = cartItems.length;
+      // Update cart items length in service
+      this.orderService.updateCartItemsLength(cartItems.length); 
+
+    });
   }
 
 }
