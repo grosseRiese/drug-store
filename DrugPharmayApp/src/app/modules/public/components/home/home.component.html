@@ -1,6 +1,6 @@
 
 <div class="container m-5">
-  <h3> HOME Component...s</h3>
+  <h3> HOME Component...</h3>
 
   <form [formGroup]="selectedDrugForm" class="card p-5 bg-gray-100 ">
   
@@ -26,7 +26,7 @@
       class="border rounded p-3 shadow mt-2 w-14 ml-3" 
       type="number"
       formControlName="selectedDrugQuantity"
-      min="0" />
+      min="1" />
 
       <ng-container> <!-- *ngIf="isAddButtonVisible()"-->
         <p-button label="+ Add" (click)="addOrder()" styleClass="p-button-info ml-2"  [disabled]="!isAddButtonVisible()"></p-button>
