@@ -18,6 +18,10 @@ export class OrderService {
 
   drugs: IDrug[] = this.drugService.drugs;
 
+  //////
+  newArray : ICartItem[] = [];
+
+
   constructor(private drugService:DrugService,
     private cartService:CartService,
     private messageService: MessageService) {
@@ -65,7 +69,13 @@ export class OrderService {
     return false; // Drug not found
   }
 
+  //////////BUGS is over all !/////////
   addToCart(cartItem: ICartItem): void {
+
+    this.cartItems$.subscribe(item=> {
+      console.log("subscribe item...: ", item);
+    });
+    
       const currentCartItems = this.cartItems$.value;
       
       console.log("currentCartItems: ", currentCartItems);
@@ -76,8 +86,6 @@ export class OrderService {
         // Drug is already added, update the quantity
         existingCartItem.quantity += cartItem.quantity;
         this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
-
-        this.cartItems$.next([existingCartItem]);//////////
 
       } else {
         // Drug is not in the cart, add it as a new item
