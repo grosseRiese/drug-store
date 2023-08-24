@@ -39,8 +39,6 @@ export class OrderService {
 
   }
 
-
-
   // Method to update the cart items length
   updateCartItemsLength(length: number) {
     this.cartItemsLength$.next(length);
@@ -71,7 +69,6 @@ export class OrderService {
     if (drug && quantity !=0) {
       return quantity <= drug.quantity; // Check if requested quantity is less than or equal to available quantity
     }
-  
     return false; // Drug not found
   }
 
@@ -123,12 +120,9 @@ export class OrderService {
     this.cartItems$.next(updatedCartItems);
   }
 
-  //////*** cartService **** //////
-
   updateCartItemsObservable(updatedCartItems:ICartItem[] ): void {
       this.cartItems$.next(updatedCartItems);
   }
-  
   
   deleteRowById(id: number): void {
     // Get the current cart items
@@ -139,18 +133,14 @@ export class OrderService {
 
     if (itemToDelete) {
       // Restore drug's quantity
-      const drug = this.drugService.getDrugById(itemToDelete.id); // You need to implement this method in DrugService
+      const drug = this.drugService.getDrugById(itemToDelete.id); 
       console.log("drug deleteRowById: ",drug);
       if (drug) {
         drug.quantity += itemToDelete.quantity;
       }
-
-      // Remove the item from the cart
+     // Remove the item from the cart
       const updatedCartItems = currentCartItems.filter(item => item.id !== id);
       this.cartItems$.next(updatedCartItems);
     }
   }
-
-
-
 }
