@@ -17,6 +17,8 @@ export class CartComponent implements OnInit {
 
   ////////////////////////////////////////////////////////////////
   drugNames: string[] = []; // Array to store drug names for autocomplete
+  editorEnabled = false; 
+
 
   constructor( 
     public drugService:DrugService,
@@ -144,6 +146,10 @@ export class CartComponent implements OnInit {
   onDeleteRow(id: number): void {
     this.orderService.deleteRowById(id);
     this.cartItems$ = this.orderService.getCartItems();
+  }
+
+  refreshEditor() {
+    this.editorEnabled  = true; // Set the editor availability to true
   }
 
 }
