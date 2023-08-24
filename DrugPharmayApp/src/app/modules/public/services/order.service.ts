@@ -69,7 +69,6 @@ export class OrderService {
     return false; // Drug not found
   }
 
-  //////////BUGS is over all !/////////
   addToCart(cartItem: ICartItem): void {
 
     this.cartItems$.subscribe(item=> {
