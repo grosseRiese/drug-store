@@ -28,8 +28,8 @@
             -->
 
             <td>
-              <ng-container *ngIf="editorEnabled; else outputTemplateName">
-                <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item.drugName)"></p-dropdown>
+              <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">
+                <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item)"></p-dropdown>
               </ng-container>
               <ng-template #outputTemplateName>
                 {{ item.drugName }}
@@ -37,7 +37,7 @@
             </td>
 
               <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity">
-                <ng-container *ngIf="editorEnabled; else outputTemplate">
+                <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplate">
                   <p-cellEditor>
                     <ng-template pTemplate="input">
                       <input pInputText type="number" [(ngModel)]="item.quantity" (ngModelChange)="updateCartItemQuantity(item, $event)" />
@@ -70,7 +70,7 @@
               <td>
                 <p-button icon="pi pi-trash" class="customizeBtn" styleClass="p-button-rounded p-button-danger p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
                 |
-                <p-button icon="pi pi-refresh" styleClass="p-button-raised p-button-text p-button-success p-button-sm" (click)="refreshEditor()"></p-button>
+                <p-button icon="pi pi-refresh" styleClass="p-button-raised p-button-text p-button-success p-button-sm" (click)="refreshEditor(item.id)"></p-button>
 
               </td>
               
