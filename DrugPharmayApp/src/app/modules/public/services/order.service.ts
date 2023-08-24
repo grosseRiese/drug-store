@@ -66,30 +66,33 @@ export class OrderService {
   }
 
   addToCart(cartItem: ICartItem): void {
-  
-    const currentCartItems = this.cartItems$.value;
+      const currentCartItems = this.cartItems$.value;
+      
+      console.log("currentCartItems: ", currentCartItems);
+    
+      const existingCartItem = currentCartItems.find(item => item.drugName === cartItem.drugName);
+    
+      if (existingCartItem) {
+        // Drug is already added, update the quantity
+        existingCartItem.quantity += cartItem.quantity;
+        this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
 
-    if (currentCartItems.some(item => item.drugName === cartItem.drugName)) {
+        this.cartItems$.next([existingCartItem]);//////////
 
-      // Drug is already added
+      } else {
+        // Drug is not in the cart, add it as a new item
+        this.cartItems$.next([...currentCartItems, cartItem]);
+        this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
+      }
+    
+      console.log("Order-service success --> currentCartItems: ", currentCartItems);
+    
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Duplicate Drug',
-        detail: 'This drug has already been added to the cart.'
+        severity: 'success',
+        summary: 'Order Added',
+        detail: 'Order successfully added to the cart.'
       });
-      return;
-    }
 
-    this.cartItems$.next([...currentCartItems, cartItem]);
-    this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
-
-    console.log(" cart-service success --> currentCartItems: ", currentCartItems);
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Order Added',
-      detail: 'Order successfully added to the cart.'
-    });
   }
 
   updateQuantityInOriginalData(drugName: string, quantity: number): void {
@@ -135,6 +138,7 @@ export class OrderService {
       this.cartItems$.next(updatedCartItems);
     }
   }
+
 
 
 }
