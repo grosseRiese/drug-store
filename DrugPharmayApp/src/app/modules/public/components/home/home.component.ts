@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit,OnDestroy{
 
     this.selectedDrugForm.get('selectedDrugName')?.valueChanges.subscribe(value => {
       this.drugService.updateInputSignal(value);
-      //console.log("Value: ",value);
+      console.log("Value: ",value);
 
        // Find the selected drug by its name
     const selectedDrug = this.drugs.find(drug => drug.name === value.name);
