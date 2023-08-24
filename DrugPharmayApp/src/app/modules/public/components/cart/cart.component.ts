@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, map, of, switchMap, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map, of, switchMap, take } from 'rxjs';
 import { ICartItem } from '../../models/cart-item';
 import { OrderService } from '../../services/order.service';
 import { CartService } from '../../services/cart.service';
@@ -34,6 +34,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  
 
     // Fetch drug names and populate the drugNames array
     this.drugService.getDrugs().subscribe(drugs => {
@@ -45,7 +46,7 @@ export class CartComponent implements OnInit {
   
  
   onDrugNameChange(item: ICartItem): void {
-    console.log('onDrugNameChange called with item:', item);
+    //console.log('onDrugNameChange called with item:', item);
 
     this.cartItems$.pipe(
       take(1),
@@ -67,34 +68,14 @@ export class CartComponent implements OnInit {
     ).subscribe(updatedCartItems => {
       this.orderService.updateCartItemsObservable(updatedCartItems);
     });
-
-  /* 
-    this.cartItems$.pipe(
-      take(1),
-      map(cartItems => {
-        return cartItems.map(cartItem => {
-          if (cartItem.id === item.id) {
-            const newDrug = this.drugService.drugs.find(drug => drug.name === item.drugName);
-            console.log('New Drug:', newDrug);
-            if (newDrug) {
-              return { ...cartItem, drugName: item.drugName, id: newDrug.id, price: newDrug.price,isAvailable:newDrug.quantity > 0 };
-            }
-          }
-          return cartItem;
-        });
-      })
-    ).subscribe(updatedCartItems => {
-      console.log('__Updated Cart Items:', updatedCartItems);
-      this.orderService.updateCartItemsObservable(updatedCartItems);
-    });
-     */
   } 
 
   updateCartItemDrugName(cartItem: ICartItem, newDrugName: string): void {
+    
     const newDrug = this.drugService.drugs.find(drug => drug.name === newDrugName);
 
     if (newDrug) {
-      console.log('Found new drug:', newDrug);//
+      //console.log('Found new drug:', newDrug);//
 
       const updatedCartItem: ICartItem = {
         ...cartItem,
@@ -120,9 +101,8 @@ export class CartComponent implements OnInit {
         this.cdr.detectChanges(); // Trigger change detection
 
         
-      });
+      }); 
     }
-
   }
   
   updateCartItemQuantity(cartItem: ICartItem, newQuantity: number): void {
@@ -136,6 +116,7 @@ export class CartComponent implements OnInit {
       });
   
       this.orderService.updateCartItemsObservable(updatedCartItems); // Update the cart items
+      this.cdr.detectChanges();
     });
   }
   
@@ -151,5 +132,9 @@ export class CartComponent implements OnInit {
   refreshEditor() {
     this.editorEnabled  = true; // Set the editor availability to true
   }
+
+  
+  
+ 
 
 }
