@@ -15,11 +15,16 @@ export class DrugService {
   constructor() { }
   
   public drugs:IDrug[] = [
-    { id: 1, name: 'Drug A', quantity: 10, price: 5.99 },
-    { id: 2, name: 'Drug B', quantity: 20, price: 9.99 },
-    { id: 3, name: 'Drug C', quantity: 78, price: 87 },
-    { id: 4, name: 'Drug D', quantity: 43, price: 100 },
-    { id: 5, name: 'Drug E', quantity: 0, price: 25 },
+    { id: 1, name: 'Naproxen', quantity: 10, price: 5.99 },
+    { id: 2, name: 'Acetaminophen', quantity: 20, price: 9.99 },
+    { id: 3, name: 'Benzonatate', quantity: 78, price: 87 },
+    { id: 4, name: 'Cyclobenzaprine', quantity: 43, price: 100 },
+    { id: 5, name: 'Loratadine', quantity: 0, price: 25 },
+    { id: 6, name: 'Doxycycline', quantity: 30, price: 50 },
+    { id: 7, name: 'Rybelsus', quantity: 3, price: 30 },
+    { id: 8, name: 'Xanax', quantity: 15, price: 65 },
+    { id: 9, name: 'Amoxicillin', quantity: 70, price: 83 },
+    { id: 10, name: 'Dupixent', quantity: 40, price: 98 },
     // Add more drugs...
   ];
 
