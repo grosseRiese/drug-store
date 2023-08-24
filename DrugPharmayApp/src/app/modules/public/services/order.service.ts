@@ -18,9 +18,9 @@ export class OrderService {
 
   drugs: IDrug[] = this.drugService.drugs;
 
-  //////
-  newArray : ICartItem[] = [];
+  cartItemsLength: number = 0;
 
+  public cartItemsLength$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(private drugService:DrugService,
     private cartService:CartService,
@@ -39,6 +39,12 @@ export class OrderService {
 
   }
 
+
+
+  // Method to update the cart items length
+  updateCartItemsLength(length: number) {
+    this.cartItemsLength$.next(length);
+  }
    // Function to update the drug name input
   updateDrugName(drugName: string) {
     this.inputSignal$.next(drugName);
@@ -110,7 +116,6 @@ export class OrderService {
   }
 
   getCartItems(): BehaviorSubject<ICartItem[]> {
-    
     return this.cartItems$;
   }
 
