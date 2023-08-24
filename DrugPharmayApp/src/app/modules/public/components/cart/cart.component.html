@@ -58,10 +58,7 @@
               
                 [checked]="item.isAvailable" disabled />
                 <span *ngIf="item.isAvailable" class="customize-success text-sm"> Available</span>
-                <span *ngIf="!item.isAvailable" class="customize-danger text-xs"> Unavailable</span>
-
-                <!-- <p-tableCheckbox [value]="item.isAvailable" > </p-tableCheckbox> -->
-                
+                <span *ngIf="!item.isAvailable" class="customize-danger text-xs"> Unavailable</span>                
               </td>
               
               <td>{{ item.price }}</td>
@@ -95,6 +92,8 @@
   
 </div>
 
+<!-- 
 <div class="flex justify-end">
   Total Sum: {{ totalSum | currency:'NIS ':'symbol':'1.2-2' }}
 </div>
+-->
