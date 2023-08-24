@@ -15,13 +15,10 @@ export class CartComponent implements OnInit {
   cartItems$: Observable<ICartItem[]>;// = this.orderService.getCartItems();
   totalSum: number = 0; // Initialize the total sum
 
-  ////////////////////////////////////////////////////////////////
   drugNames: string[] = []; // Array to store drug names for autocomplete
   editorEnabled = false; 
   editId:number =0;
   
-  //cartItemsLength: number = 0;
-
 
   constructor( 
     public drugService:DrugService,
@@ -43,16 +40,6 @@ export class CartComponent implements OnInit {
     this.drugService.getDrugs().subscribe(drugs => {
       this.drugNames = drugs.map(drug => drug.name);
     });
-
-    /*
-    // 
-    this.orderService.getCartItems().subscribe((cartItems) => {
-      this.cartItemsLength = cartItems.length;
-      // Update cart items length in service
-      this.orderService.updateCartItemsLength(cartItems.length); 
-
-    });
-    */
 
   }
 
@@ -150,6 +137,5 @@ export class CartComponent implements OnInit {
       this.orderService.updateCartItemsObservable(cartItems);
     });
   }
-  
   
 }
