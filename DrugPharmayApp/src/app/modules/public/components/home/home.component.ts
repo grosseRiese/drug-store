@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit,OnDestroy{
   ngOnInit(): void {
     this.selectedDrugForm = new FormGroup({
       selectedDrugName: new FormControl('', [Validators.required]),
-      selectedDrugQuantity: new FormControl(0, [Validators.required, Validators.min(1)])
+      selectedDrugQuantity: new FormControl(1, [Validators.required, Validators.min(1)])
     });
       
     this.loadDrugsList();
