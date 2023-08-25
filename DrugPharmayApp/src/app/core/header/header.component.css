@@ -1,3 +1,8 @@
 .btn:hover{
  color: aliceblue;
 }
+
+/* Menu transition */
+#mobileMenu {
+ transition: transform 0.3s;
+}
