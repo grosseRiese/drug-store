@@ -1,3 +1,9 @@
+.card{
+  padding:0px !important;
+  margin:0px !important;
+  margin: 1rem;
+  width:100%;
+}
   .customize-success{
     color: #4cd07d;
   }
@@ -9,8 +15,10 @@
   }
 
   .custom-table {
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
+    
     width: 100%;
+    
   }
   
   .custom-table th,
@@ -22,6 +30,7 @@
   
   .custom-table th {
     background-color: #f2f2f2;
+
   }
   
   .customize-success {
@@ -36,3 +45,4 @@
   .custom-input {
     width: 50px; 
   }
+  
