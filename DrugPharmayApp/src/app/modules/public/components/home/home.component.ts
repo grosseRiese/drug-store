@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit,OnDestroy{
     }else{
       this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
       this.messageService.add(this.errorMessage[0]);
-      console.log("Error..X..");
+      //console.log("Error..X..");
     }
 
   }//End of addOrder

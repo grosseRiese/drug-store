@@ -16,7 +16,6 @@
 
   .custom-table {
     /*border-collapse: collapse;*/
-    
     width: 100%;
     
   }
@@ -35,6 +34,7 @@
   }
   .custom-table tr {
     font-size: 1.2vw;
+    z-index: 9999;
 
   }
   
@@ -47,7 +47,10 @@
   }
 
   /* Adjust width of the input inside p-cellEditor */
-  .custom-input {
-    width: 50px; 
+  .custom-input-quantity {
+    width: 8vw; 
+  }
+  .customize-price{
+    color:#4cd07d;
   }
   
