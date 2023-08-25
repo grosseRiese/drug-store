@@ -3,6 +3,7 @@
   margin:0px !important;
   margin: 1rem;
   width:100%;
+  position: relative;
 }
   .customize-success{
     color: #4cd07d;
@@ -15,7 +16,6 @@
   }
 
   .custom-table {
-    /*border-collapse: collapse;*/
     width: 100%;
     
   }
@@ -30,11 +30,6 @@
   .custom-table th {
     background-color: #f2f2f2;
     font-size: 1.2vw;
-
-  }
-  .custom-table tr {
-    font-size: 1.2vw;
-    z-index: 9999;
 
   }
   
@@ -53,4 +48,3 @@
   .customize-price{
     color:#4cd07d;
   }
-  
