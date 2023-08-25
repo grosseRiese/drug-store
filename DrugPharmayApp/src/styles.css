@@ -11,3 +11,9 @@
   width:40vw ;
 }
 
+.p-button.p-button-icon-only.p-button-raised{
+  border-radius: 50%;
+  height:2rem;
+  width:1rem;
+  margin: 0 auto;
+}
