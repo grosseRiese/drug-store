@@ -1,9 +1,9 @@
 
-<div class="card">
+<div class="">
   <p-table 
   *ngIf="cartItems$ | async as cartItems" 
   [value]="cartItems" 
-  [tableStyle]="{ 'min-width': '100%' }" dataKey="id" class="custom-table">
+  [tableStyle]="{ 'min-width': '100%' }" dataKey="id" class="custom-table card">
   
       <ng-template pTemplate="header">
           <tr>
@@ -20,9 +20,9 @@
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing">
           <tr>
               <td>{{ item.id }}</td>
-              <td>
+              <td >
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">
-                  <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item)"></p-dropdown>
+                  <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item)" class="dropdown-container"></p-dropdown>
                 </ng-container>
                 <ng-template #outputTemplateName>
                   {{ item.drugName }}
@@ -51,7 +51,9 @@
               
                 [checked]="item.isAvailable" disabled />
                 <span *ngIf="item.isAvailable" class="customize-success text-sm"> Available</span>
-                <span *ngIf="!item.isAvailable" class="customize-danger text-xs"> Unavailable</span>                
+
+                <span *ngIf="!item.isAvailable" class="customize-danger text-xs"> Unavailable</span>
+                
               </td>
               
               <td>{{ item.price }}</td>
@@ -82,6 +84,6 @@
     </ng-template>
   </p-table>
 
-  <p-button label="Save" icon="pi pi-check" styleClass="p-button-success p-button-sm" (click)="saveChanges()" ></p-button>
+  <p-button label="Save" icon="pi pi-check" styleClass="p-button-success p-button-sm btn-save" (click)="saveChanges()" ></p-button>
 
 </div>
