@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 import { OrderService } from 'src/app/modules/public/services/order.service';
 
 @Component({
@@ -20,7 +21,6 @@ export class HeaderComponent implements OnInit {
       // Update cart items length in service
       this.orderService.updateCartItemsLength(cartItems.length); 
     });
-    
   }
 
   toggleMobileMenu(): void {
