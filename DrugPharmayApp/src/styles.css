@@ -7,6 +7,6 @@
 @import "primeicons/primeicons.css";
 
 /**** @override some ngPrime-classes ***/
-.p-dropdown.p-component{
-  width:40vw !important;
+.custom-dropdown .p-dropdown.p-component{
+  width:40vw ;
 }
