@@ -1,28 +1,50 @@
 
 <nav class="bg-white shadow-lg">
- <div class="container mx-auto px-4 py-2 flex justify-between items-center">
-   <!-- Logo and Business Name (Left Side) -->
-   <div class="flex items-center space-x-2">
-     <!-- Replace 'logo.svg' with your logo image path -->
-     <div> 
-       <img src="assets/img/logo.png" alt="Logo" class="h-12 w-12"> <!-- -->
-       <p class="text-sm text-gray-500">Gaza Central Company</p>
-     </div>
+  <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+    <!-- Logo and Business Name (Left Side) -->
+    <div class="hidden lg:flex items-center space-x-2">
+      <img src="assets/img/logo.png" alt="Logo" class="h-12 w-12">
+      <p class="text-sm text-gray-500">Gaza Central Company</p>
+    </div>
+    
 
-   </div>
+    <!-- Middle Section Links -->
+      <div class="hidden lg:flex lg:space-x-4 lg:mx-6 mt-4 lg:mt-0">
+        <a routerLink="/home" class="text-blue-800">Home</a>
+        <a href="#" class="text-blue-800">Visio</a>
+        <a href="#" class="text-blue-800">Admin</a>
+        <a href="#" class="text-blue-800">Test</a>
+        <a href="#" class="text-blue-800">TestText</a>
+      </div>
 
-   <!-- Middle Section Links -->
-   <div class="flex space-x-4">
-     <a routerLink="/home" class="text-blue-800">Home</a>
-     <a href="#" class="text-blue-800">Visio</a>
-     <a href="#" class="text-blue-800">Admin</a>
-     <a href="#" class="text-blue-800">Test</a>
-     <a href="#" class="text-blue-800">TestText</a>
-   </div>
+      <!-- Hamburger Menu Button -->
+      <button
+      id="mobileMenuButton"
+      class="lg:hidden text-gray-600 hover:text-gray-800 focus:outline-none focus:ring focus:ring-gray-300"
+      (click)="toggleMobileMenu()"
+      aria-label="Toggle mobile menu"
+      >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <!-- Insert your hamburger menu icon here -->
+      </button>
+
+      <!-- Mobile Menu (Hidden by default) -->
+      <div
+        id="mobileMenu"
+        [class.hidden]="!isMobileMenuVisible"
+        class="lg:hidden fixed left-0 top-0 h-full w-72 bg-transparent transition-transform duration-300 transform -translate-x-full p-4 z-50"
+        >
+        <a routerLink="/home" class="text-blue-800 block mb-2">Home</a>
+        <a href="#" class="text-blue-800 block mb-2">Visio</a>
+        <a href="#" class="text-blue-800 block mb-2">Admin</a>
+        <a href="#" class="text-blue-800 block mb-2">Test</a>
+        <a href="#" class="text-blue-800 block mb-2">TestText</a>
+      </div>
 
    <!-- Right Section Links -->
    <div class="flex items-center space-x-4">
-
      <div class="flex items-center ml-5">
        <img src="../../assets/img/logo.png" alt="Logo" class="w-5 h-5 mr-2">
        <span class="text-xs">Pharmacy Name</span>
@@ -40,7 +62,7 @@
          </a>
        </div>
          <!-- Vertical Line -->
-       <div class="h-12 border-r border-black mx-4"></div>
+       <div class="hidden lg:block h-12 border-r border-black mx-4"></div>
        <!-- Dropdown -->
        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black bg-white-700 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-gray-300 dark:focus:ring-gray-200" type="button">
         <img src="http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="15" height="15"  alt="">
@@ -65,7 +87,7 @@
       <!-- End-dropdown-->
        
        <!-- Order Now Button -->
-       <a href="#" class="flex-none rounded-full bg-lime-500 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">Order now </a>
+       <a href="#" class="flex-none rounded-full bg-lime-500 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 mt-4 lg:mt-0">Order now </a>
 
    </div>
  </div>
