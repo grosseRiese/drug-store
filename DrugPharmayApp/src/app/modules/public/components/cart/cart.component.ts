@@ -19,7 +19,6 @@ export class CartComponent implements OnInit {
   editorEnabled = false; 
   editId:number =0;
   
-
   constructor( 
     public drugService:DrugService,
     public orderService:OrderService,
@@ -35,7 +34,6 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
   
-
     // Fetch drug names and populate the drugNames array
     this.drugService.getDrugs().subscribe(drugs => {
       this.drugNames = drugs.map(drug => drug.name);
