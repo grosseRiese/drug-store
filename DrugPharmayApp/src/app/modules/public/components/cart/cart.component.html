@@ -1,10 +1,9 @@
-<p>cart works!</p>
 
-<div class="card">
+<div class="">
   <p-table 
   *ngIf="cartItems$ | async as cartItems" 
   [value]="cartItems" 
-  [tableStyle]="{ 'min-width': '5rem' }" dataKey="id">
+  [tableStyle]="{ 'min-width': '5rem' }" dataKey="id" class="custom-table">
   
       <ng-template pTemplate="header">
           <tr>
@@ -30,11 +29,11 @@
               </ng-template>
             </td>
 
-              <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity">
+              <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity" style="width:10%">
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplate">
                   <p-cellEditor>
                     <ng-template pTemplate="input">
-                      <input pInputText type="number" [(ngModel)]="item.quantity" (ngModelChange)="updateCartItemQuantity(item, $event)" />
+                      <input pInputText type="number" [(ngModel)]="item.quantity" (ngModelChange)="updateCartItemQuantity(item, $event)" class="custom-input" />
                     </ng-template>
                     <ng-template pTemplate="output">
                       {{ item.quantity }}
