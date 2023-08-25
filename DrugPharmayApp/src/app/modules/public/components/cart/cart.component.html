@@ -3,7 +3,7 @@
   <p-table 
   *ngIf="cartItems$ | async as cartItems" 
   [value]="cartItems" 
-  [tableStyle]="{ 'min-width': '5rem' }" dataKey="id" class="custom-table">
+  [tableStyle]="{ 'min-width': '100%' }" dataKey="id" class="custom-table">
   
       <ng-template pTemplate="header">
           <tr>
