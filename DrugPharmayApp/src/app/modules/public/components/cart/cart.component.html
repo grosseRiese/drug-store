@@ -57,8 +57,10 @@
               <td>{{ item.price }}</td>
               <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
-              <td>
-                <p-button icon="pi pi-trash" class="customizeBtn" styleClass="p-button-rounded p-button-danger p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
+              <td style="text-align: center;">
+                <span style="text-align: center;">
+                  <p-button icon="pi pi-times" styleClass="p-button-raised p-button-danger p-button-text p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
+                </span>
                 |
                 <p-button icon="pi pi-refresh" styleClass="p-button-raised p-button-text p-button-success p-button-sm" (click)="refreshEditor(item.id)"></p-button>
 
