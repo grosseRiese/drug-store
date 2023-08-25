@@ -30,6 +30,11 @@
   
   .custom-table th {
     background-color: #f2f2f2;
+    font-size: 1.2vw;
+
+  }
+  .custom-table tr {
+    font-size: 1.2vw;
 
   }
   
