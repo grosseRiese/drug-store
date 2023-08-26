@@ -19,16 +19,14 @@ export class CartComponent implements OnInit {
   editorEnabled = false; 
   editId:number =0;
   
-  isDuplicateRowMap: Map<number, boolean> = new Map(); // Map to store duplication status
-
   
   constructor( 
     public drugService:DrugService,
     public orderService:OrderService,
     private cdr: ChangeDetectorRef,) {
 
-    this.cartItems$ = this.orderService.getCartItems();
-    this.cartItems$.subscribe((items) => {
+      this.cartItems$ = this.orderService.getCartItems();
+      this.cartItems$.subscribe((items) => {
       this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
     });
     
