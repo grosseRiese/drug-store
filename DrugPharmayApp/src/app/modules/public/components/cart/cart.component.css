@@ -51,3 +51,17 @@
   .customize-tot-price{
     font-size:1.2vw;
   }
+
+  /*****************  *********/
+ .selected-drug{
+    background-color: rgb(251, 251, 204) !important; 
+    font-weight: bold;
+    color:rgb(55, 150, 163) !important;
+    z-index:999999;
+    border: 5px solid #4cd07d !important;
+  }
+  
+  
+  
+  
+  
