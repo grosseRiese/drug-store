@@ -17,8 +17,8 @@
               <th></th>
           </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing">
-          <tr [style.border]="isDuplicateRow(item) ? '1px solid yellow' : ''">
+      <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing" >
+          <tr>
               <td>{{ item.id }}</td>
               <td >
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">

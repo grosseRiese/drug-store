@@ -19,13 +19,15 @@ export class CartComponent implements OnInit {
   editorEnabled = false; 
   editId:number =0;
   
+  isDuplicateRowMap: Map<number, boolean> = new Map(); // Map to store duplication status
+
+  
   constructor( 
     public drugService:DrugService,
     public orderService:OrderService,
     private cdr: ChangeDetectorRef,) {
 
     this.cartItems$ = this.orderService.getCartItems();
-
     this.cartItems$.subscribe((items) => {
       this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
     });
@@ -38,7 +40,7 @@ export class CartComponent implements OnInit {
     this.drugService.getDrugs().subscribe(drugs => {
       this.drugNames = drugs.map(drug => drug.name);
     });
-
+    
   }
 
   onDrugNameChange(item: ICartItem): void {
@@ -134,13 +136,6 @@ export class CartComponent implements OnInit {
     this.cartItems$.pipe(take(1)).subscribe(cartItems => {
       this.orderService.updateCartItemsObservable(cartItems);
     });
-  }
-
-  isDuplicateRow(item: ICartItem): Observable<boolean> {
-    return this.cartItems$.pipe(
-      take(1),
-      map(cartItems => cartItems.some(row => row.drugName === item.drugName))
-    );
   }
   
 }

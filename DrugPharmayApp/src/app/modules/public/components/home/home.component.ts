@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit,OnDestroy{
          // Clear the message after 3 seconds
           setTimeout(() => {
             this.message = [];
-          }, 3000); 
+          }, 2000); 
 
     }else{
       this.message = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit,OnDestroy{
       // Clear the message after 3 seconds
         setTimeout(() => {
           this.message = [];
-        }, 3000); 
+        }, 2000); 
           }
 
   }//End of addOrder
@@ -189,7 +189,6 @@ export class HomeComponent implements OnInit,OnDestroy{
     const quantity = this.selectedDrugForm.get('selectedDrugQuantity')?.value;
   
     const selectedDrug = this.drugs.find(drug => drug.name === drugName);
-  
     if (selectedDrug) {
       if (quantity > 0 && quantity <= selectedDrug.quantity) {
         // Drug is available in the required quantity

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { DrugService } from './drug.service';
 import { IDrug } from '../models/idrug';
 import { ICartItem } from '../models/cart-item';
@@ -27,7 +27,7 @@ export class OrderService {
     private messageService: MessageService) {
 
      // Subscribe to input changes and update button availability
-    this.inputSignal$.subscribe(drugName => {
+    const p = this.inputSignal$.subscribe(drugName => {
       const desiredQuantity = this.inputQuantitySignal$.value;
       this.updateAddButtonAvailability(drugName, desiredQuantity);
     });
@@ -38,7 +38,6 @@ export class OrderService {
     });
 
   }
-
   // Method to update the cart items length
   updateCartItemsLength(length: number) {
     this.cartItemsLength$.next(length);
@@ -144,4 +143,5 @@ export class OrderService {
       this.cartItems$.next(updatedCartItems);
     }
   }
+  
 }
