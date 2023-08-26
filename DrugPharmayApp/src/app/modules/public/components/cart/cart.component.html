@@ -18,7 +18,7 @@
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing" >
-          <tr>
+          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName)}"> 
               <td>{{ item.id }}</td>
               <td >
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">
