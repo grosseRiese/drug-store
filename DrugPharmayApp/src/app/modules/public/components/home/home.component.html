@@ -1,5 +1,5 @@
 
-<div class="">
+<div class="myClass">
   <form [formGroup]="selectedDrugForm" class="card p-5 bg-gray-100 ">
   
     <p-dropdown [options]="drugs" formControlName="selectedDrugName" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Drug"  class="custom-dropdown">
@@ -31,7 +31,7 @@
       </ng-container>
 
   </form>
-    <div class="card" *ngIf="message">
+    <div class="card customize-msg" *ngIf="message">
         <p-messages [value]="message" [closable]="true" ></p-messages>
     </div>
 </div>
