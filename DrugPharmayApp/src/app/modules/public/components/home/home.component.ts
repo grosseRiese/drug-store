@@ -134,14 +134,15 @@ export class HomeComponent implements OnInit,OnDestroy{
         // Display a message for successful addition
         this.message = [{ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' }];
         this.messageService.add(this.message[0]);
-         // Clear the message after 3 seconds
+
+         // Clear the message after 2 seconds
           setTimeout(() => {
             this.message = [];
           }, 2000); 
     }else{
       this.message = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
       this.messageService.add(this.message[0]);
-      // Clear the message after 3 seconds
+      // Clear the message after 2 seconds
         setTimeout(() => {
           this.message = [];
         }, 2000); 
