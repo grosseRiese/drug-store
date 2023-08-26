@@ -133,14 +133,20 @@ export class HomeComponent implements OnInit,OnDestroy{
         this.orderService.addToCart(this.cartItem);
         // Display a message for successful addition
         this.message = [{ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' }];
-
         this.messageService.add(this.message[0]);
+         // Clear the message after 3 seconds
+          setTimeout(() => {
+            this.message = [];
+          }, 3000); 
 
     }else{
       this.message = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
       this.messageService.add(this.message[0]);
-      //console.log("Error..X..");
-    }
+      // Clear the message after 3 seconds
+        setTimeout(() => {
+          this.message = [];
+        }, 3000); 
+          }
 
   }//End of addOrder
 
