@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map, take, timer } from 'rxjs';
 import { DrugService } from './drug.service';
 import { IDrug } from '../models/idrug';
 import { ICartItem } from '../models/cart-item';
@@ -13,14 +13,14 @@ export class OrderService {
 
   private inputSignal$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private cartItems$: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
-
   private inputQuantitySignal$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-
   drugs: IDrug[] = this.drugService.drugs;
-
   cartItemsLength: number = 0;
+  private duplicatedName: string = '';
+  private duplicatedNameTimer$: Subscription | null = null;
 
   public cartItemsLength$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
 
   constructor(private drugService:DrugService,
     private cartService:CartService,
@@ -51,6 +51,11 @@ export class OrderService {
   updateQuantity(quantity: number) {
     this.inputQuantitySignal$.next(quantity);
   }
+  //For the table row when adding the same drugName: to mark the whole row!
+  setDuplicatedName(name: string) {
+    this.duplicatedName = name;
+    this.resetDuplicatedNameAfterTimeout();
+  }
 
   // Function to update 'ADD' button availability based on drug name and quantity
   updateAddButtonAvailability(drugName: string, quantity: number) {
@@ -71,23 +76,27 @@ export class OrderService {
     return false; // Drug not found
   }
 
+
   addToCart(cartItem: ICartItem): void {
 
     this.cartItems$.subscribe(item=> {
       console.log("subscribe item...: ", item);
     });
     
-      const currentCartItems = this.cartItems$.value;
-      
-      console.log("currentCartItems: ", currentCartItems);
-    
-      const existingCartItem = currentCartItems.find(item => item.drugName === cartItem.drugName);
+    const currentCartItems = this.cartItems$.value;
+    console.log("currentCartItems: ", currentCartItems);
+    const existingCartItem = currentCartItems.find(item => item.drugName === cartItem.drugName);
     
       if (existingCartItem) {
+        
         // Drug is already added, update the quantity
         existingCartItem.quantity += cartItem.quantity;
         existingCartItem.totalPrice += cartItem.totalPrice;
         this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
+
+      // Set the duplicated drug name
+        this.setDuplicatedName(existingCartItem.drugName);
+        
 
       } else {
         // Drug is not in the cart, add it as a new item
@@ -102,8 +111,23 @@ export class OrderService {
         summary: 'Order Added',
         detail: 'Order successfully added to the cart.'
       });
-
   }
+
+  /******************************************/
+  isDuplicatedItem(item: string): boolean {
+    return item === this.duplicatedName;
+  }
+
+  private resetDuplicatedNameAfterTimeout() {
+    if (this.duplicatedNameTimer$) {
+      this.duplicatedNameTimer$.unsubscribe();
+    }
+    this.duplicatedNameTimer$ = timer(2000).subscribe(() => {
+      this.duplicatedName = '';
+    });
+  }
+  /******************************************/
+
 
   updateQuantityInOriginalData(drugName: string, quantity: number): void {
     const drug = this.drugs.find(d => d.name === drugName);
