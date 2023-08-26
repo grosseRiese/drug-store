@@ -138,7 +138,6 @@ export class HomeComponent implements OnInit,OnDestroy{
           setTimeout(() => {
             this.message = [];
           }, 2000); 
-
     }else{
       this.message = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
       this.messageService.add(this.message[0]);
