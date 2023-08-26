@@ -87,6 +87,7 @@ export class OrderService {
       if (existingCartItem) {
         // Drug is already added, update the quantity
         existingCartItem.quantity += cartItem.quantity;
+        existingCartItem.totalPrice += cartItem.totalPrice;
         this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
 
       } else {

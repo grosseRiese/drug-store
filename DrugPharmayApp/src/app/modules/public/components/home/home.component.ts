@@ -32,9 +32,8 @@ export class HomeComponent implements OnInit,OnDestroy{
   drugId:number = 0;
   drupPrice : number = 0;
 
-  errorMessage: Message[] = [];
+  message: Message[] = [];
 
-    /////////////////////
   drugNameSubscription: Subscription | undefined;
   receivedDrugName: string | undefined;
   cartItemsSubscription: Subscription | undefined;
@@ -77,7 +76,6 @@ export class HomeComponent implements OnInit,OnDestroy{
       //console.log("updateInputQuantitySignal: ",value);
     });
 
-    ////////////////
     this.cartItemsSubscription = this.orderService.getCartItems().subscribe(cartItems => {
       this.rows = cartItems;
       this.updateAddButtonAvailability();
@@ -120,7 +118,7 @@ export class HomeComponent implements OnInit,OnDestroy{
 
     if(this.orderService.isDrugAvailable(drugName,quantity)){
 
-      this.errorMessage =[]; 
+      this.message =[]; 
       
           this.cartItem = {
             drugName: drugName,
@@ -134,17 +132,19 @@ export class HomeComponent implements OnInit,OnDestroy{
             
         this.orderService.addToCart(this.cartItem);
         // Display a message for successful addition
-        this.messageService.add({ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' });
+        this.message = [{ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' }];
+
+        this.messageService.add(this.message[0]);
 
     }else{
-      this.errorMessage = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
-      this.messageService.add(this.errorMessage[0]);
+      this.message = [{ severity: 'error', summary: 'Error', detail: `${drugName} ${quantity} is not available` }];
+      this.messageService.add(this.message[0]);
       //console.log("Error..X..");
     }
 
   }//End of addOrder
 
-//////////////////////////////////////////////////////////////////
+
     ngOnDestroy(): void {
     
       if(this.cartItemsSubscription){

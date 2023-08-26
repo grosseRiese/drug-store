@@ -31,9 +31,9 @@
       </ng-container>
 
   </form>
-  <!-- <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p> -->
-    <div class="card" *ngIf="errorMessage">
-        <p-messages [value]="errorMessage" [closable]="true" ></p-messages>
+  <!-- <p *ngIf="message" class="error-message">{{ message }}</p> -->
+    <div class="card" *ngIf="message">
+        <p-messages [value]="message" [closable]="true" ></p-messages>
     </div>
 </div>
 

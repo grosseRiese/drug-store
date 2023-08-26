@@ -135,5 +135,12 @@ export class CartComponent implements OnInit {
       this.orderService.updateCartItemsObservable(cartItems);
     });
   }
+
+  isDuplicateRow(item: ICartItem): Observable<boolean> {
+    return this.cartItems$.pipe(
+      take(1),
+      map(cartItems => cartItems.some(row => row.drugName === item.drugName))
+    );
+  }
   
 }
