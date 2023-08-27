@@ -3,7 +3,6 @@
   margin:0px !important;
   margin: 1rem;
   width:100%;
-  position: relative;
 }
   .customize-success{
     color: #4cd07d;
@@ -22,8 +21,6 @@
   
   .custom-table th,
   .custom-table td {
-    /*border: 1px solid #dddddd;*/
-    padding: 8px;
     text-align: left;
   }
   
@@ -57,14 +54,7 @@
     background-color: rgb(251, 251, 204) !important; 
     font-weight: bold;
     color:rgb(55, 150, 163) !important;
-    z-index:999999;
+    z-index:2;
     border: 5px solid #4cd07d !important;
   }
-  
-
-  .dropdown-container {
-   
-  }
-  
-  
-  
+  /**** To style the  dropdown list ***/

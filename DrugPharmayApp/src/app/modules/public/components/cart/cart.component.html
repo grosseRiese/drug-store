@@ -1,9 +1,9 @@
 
-<div class="">
+<div class="card">
   <p-table 
   *ngIf="cartItems$ | async as cartItems" 
   [value]="cartItems" 
-  [tableStyle]="{ 'min-width': '100%','min-height': '100%' }" dataKey="id" class="custom-table card">
+  [tableStyle]="{ 'min-width': '100%','min-height': '100%' }" dataKey="id" class="custom-table ">
   
       <ng-template pTemplate="header">
           <tr>
@@ -20,13 +20,18 @@
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing" >
           <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName)}"> 
               <td>{{ item.id }}</td>
-              <td >
+              <td class="test-output">
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">
-                  <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item)" class="dropdown-container"></p-dropdown>
+
+                  <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item)">
+                  </p-dropdown>
+
                 </ng-container>
-                <ng-template #outputTemplateName>
+
+                <ng-template #outputTemplateName >
                   {{ item.drugName }}
                 </ng-template>
+
               </td>
 
               <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity" style="width:10%">
