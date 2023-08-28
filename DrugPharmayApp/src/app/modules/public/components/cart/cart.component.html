@@ -17,8 +17,9 @@
               <th></th>
           </tr>
       </ng-template>
+
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing" >
-          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName)}"> 
+          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName)}" > 
               <td>{{ item.id }}</td>
               <td class="test-output">
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">
@@ -86,7 +87,7 @@
             <td></td>
             <td class="customize-tot-price">Total Price: <span [ngClass]="'customize-price'">{{totalSum | currency:'NIS ':'symbol':'1.2-2'}} </span> </td>
         </tr>
-    </ng-template>
+      </ng-template>
   </p-table>
 
   <p-button label="Save" icon="pi pi-check" styleClass="p-button-success p-button-sm btn-save" (click)="saveChanges()" ></p-button>

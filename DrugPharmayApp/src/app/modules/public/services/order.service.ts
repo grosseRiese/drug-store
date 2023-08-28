@@ -73,6 +73,7 @@ export class OrderService {
     if (drug && quantity !=0) {
       return quantity <= drug.quantity; // Check if requested quantity is less than or equal to available quantity
     }
+
     return false; // Drug not found
   }
 
@@ -117,7 +118,7 @@ export class OrderService {
   isDuplicatedItem(item: string): boolean {
     return item === this.duplicatedName;
   }
-
+  
   private resetDuplicatedNameAfterTimeout() {
     if (this.duplicatedNameTimer$) {
       this.duplicatedNameTimer$.unsubscribe();

@@ -57,4 +57,7 @@
     z-index:2;
     border: 5px solid #4cd07d !important;
   }
-  /**** To style the  dropdown list ***/
+
+  .unavailable-row {
+    border: 2px solid red;
+  }
