@@ -23,7 +23,7 @@
               <td class="test-output">
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">
 
-                  <p-dropdown [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item)">
+                  <p-dropdown appendTo="body" [options]="drugNames" [(ngModel)]="item.drugName" field="name" (ngModelChange)="onDrugNameChange(item)">
                   </p-dropdown>
 
                 </ng-container>
