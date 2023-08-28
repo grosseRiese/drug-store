@@ -19,7 +19,9 @@
       </ng-template>
 
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing" >
-          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName)}" > 
+
+          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName), 'row-negative-quantity': item.quantity <= 0}" > 
+
               <td>{{ item.id }}</td>
               <td class="test-output">
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplateName">
@@ -65,7 +67,7 @@
               <td>{{ item.price }}</td>
               <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
-              <td style="text-align: center;">
+              <td style="text-align: center;"  [ngClass]="{'hide-row': item.quantity <= 0}" >
                 <span style="text-align: center;">
                   <p-button icon="pi pi-times" styleClass="p-button-raised p-button-danger p-button-text p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
                 </span>
