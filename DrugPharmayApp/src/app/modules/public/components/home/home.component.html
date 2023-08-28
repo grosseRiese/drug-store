@@ -2,7 +2,7 @@
 <div class="myClass">
   <form [formGroup]="selectedDrugForm" class="card p-5 bg-gray-100 ">
   
-    <p-dropdown [options]="drugs" formControlName="selectedDrugName" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Drug"  class="custom-dropdown">
+    <p-dropdown [options]="drugs" formControlName="selectedDrugName" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Drug"  class="custom-dropdown" appendTo="body">
         <ng-template pTemplate="selectedItem">
             <div class="flex align-items-center gap-2" *ngIf="selectedDrugForm && selectedDrugForm.get('selectedDrugName')?.value">
                 <div>{{ selectedDrugForm.get('selectedDrugName')?.value.name}}</div>
