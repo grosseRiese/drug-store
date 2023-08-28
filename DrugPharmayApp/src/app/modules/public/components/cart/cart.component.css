@@ -55,9 +55,16 @@
     font-weight: bold;
     color:rgb(55, 150, 163) !important;
     z-index:2;
-    border: 5px solid #4cd07d !important;
+    border: 2px solid #4cd07d !important;
   }
 
-  .unavailable-row {
-    border: 2px solid red;
+  .row-negative-quantity {
+    background-color: #ffcccc !important; 
+    color:rgb(91, 6, 54) !important;
+    z-index:2;
+    border: 2px solid #b71a14 !important;
+  }
+  .hide-row{
+    /*display: none;*/
+    visibility: hidden;
   }
