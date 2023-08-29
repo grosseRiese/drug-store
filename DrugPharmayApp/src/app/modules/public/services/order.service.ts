@@ -23,9 +23,7 @@ export class OrderService {
 
   private savedOrders$: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
 
-
   constructor(private drugService:DrugService,
-    private cartService:CartService,
     private messageService: MessageService) {
 
      // Subscribe to input changes and update button availability
@@ -38,6 +36,8 @@ export class OrderService {
       const drugName = this.inputSignal$.value;
       this.updateAddButtonAvailability(drugName, quantity);
     });
+
+
 
   }
   // Method to update the cart items length
@@ -79,7 +79,6 @@ export class OrderService {
     return false; // Drug not found
   }
 
-
   addToCart(cartItem: ICartItem): void {
 
     this.cartItems$.subscribe(item=> {
@@ -95,13 +94,14 @@ export class OrderService {
         // Drug is already added, update the quantity
         existingCartItem.quantity += cartItem.quantity;
         existingCartItem.totalPrice += cartItem.totalPrice;
-        this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
 
+        this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
       // Set the duplicated drug name
         this.setDuplicatedName(existingCartItem.drugName);
-        
 
       } else {
+
+        cartItem.totalPrice = cartItem.price * cartItem.quantity; 
         // Drug is not in the cart, add it as a new item
         this.cartItems$.next([...currentCartItems, cartItem]);
         this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
