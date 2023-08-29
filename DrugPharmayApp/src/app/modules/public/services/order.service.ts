@@ -21,6 +21,8 @@ export class OrderService {
 
   public cartItemsLength$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
+  private savedOrders$: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
+
 
   constructor(private drugService:DrugService,
     private cartService:CartService,
@@ -132,6 +134,15 @@ export class OrderService {
     return this.isDrugAvailable(drugName, quantity);
   }
 
+  saveOrder(cartItems: ICartItem[]): void {
+    this.savedOrders$.next(cartItems);
+    // Clear the cart items after saving the order
+    this.updateCartItems([]);
+  }
+
+  getSavedOrders(): Observable<ICartItem[]> {
+    return this.savedOrders$.asObservable();
+  }
   /******************************************/
 
 
