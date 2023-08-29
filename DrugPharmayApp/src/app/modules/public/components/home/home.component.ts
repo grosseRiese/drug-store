@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit,OnDestroy{
   };
 
   drugId:number = 0;
-  drupPrice : number = 0;
+  drugPrice : number = 0;
 
   message: Message[] = [];
 
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit,OnDestroy{
         if (selectedDrug) {
           // Update the cartItem price based on the selected drug's price
           this.drugId = selectedDrug.id;
-          this.drupPrice = selectedDrug.price;
+          this.drugPrice = selectedDrug.price;
           //console.log(this.cartItem.id + ' ' + this.cartItem.price);
         }
       }
@@ -111,22 +111,16 @@ export class HomeComponent implements OnInit,OnDestroy{
   addOrder(){
     const drugName =this.selectedDrugForm.get('selectedDrugName')?.value.name; 
     const quantity = this.selectedDrugForm.get('selectedDrugQuantity')?.value;
-
-    //console.log("Home.ts: ",drugName);
-    //console.log("Home.ts: ",quantity);
-    
-
     if(this.orderService.isDrugAvailable(drugName,quantity)){
-
       this.message =[]; 
       
           this.cartItem = {
             drugName: drugName,
             quantity: quantity,
-            price: this.drupPrice, 
+            price: this.drugPrice, 
             id: this.drugId, 
             isAvailable: quantity > 0, 
-            totalPrice: this.drupPrice * quantity, 
+            totalPrice:this.drugPrice * quantity,
             expireDate: new Date(), 
           };
             
