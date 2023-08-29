@@ -39,9 +39,7 @@ export class HomeComponent implements OnInit,OnDestroy{
   cartItemsSubscription: Subscription | undefined;
   rows: ICartItem[] = []; // Initialize with an empty array
 
-
   constructor(private drugService: DrugService,
-    private cartService: CartService,
     private orderService: OrderService,
     private messageService: MessageService ) {}
 
@@ -109,6 +107,7 @@ export class HomeComponent implements OnInit,OnDestroy{
 
   //addOrderToCart
   addOrder(){
+
     const drugName =this.selectedDrugForm.get('selectedDrugName')?.value.name; 
     const quantity = this.selectedDrugForm.get('selectedDrugQuantity')?.value;
     if(this.orderService.isDrugAvailable(drugName,quantity)){
@@ -125,6 +124,7 @@ export class HomeComponent implements OnInit,OnDestroy{
           };
             
         this.orderService.addToCart(this.cartItem);
+        
         // Display a message for successful addition
         this.message = [{ severity: 'success', summary: 'Order Added', detail: 'Order successfully added.' }];
         this.messageService.add(this.message[0]);
@@ -140,7 +140,8 @@ export class HomeComponent implements OnInit,OnDestroy{
         setTimeout(() => {
           this.message = [];
         }, 2000); 
-          }
+    }
+    
 
   }//End of addOrder
 
@@ -194,8 +195,5 @@ export class HomeComponent implements OnInit,OnDestroy{
     }
   }
   
-  
-
-
 }
 
