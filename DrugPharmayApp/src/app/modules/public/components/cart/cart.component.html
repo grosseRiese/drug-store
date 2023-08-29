@@ -20,7 +20,7 @@
 
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing" >
 
-          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName), 'row-negative-quantity': item.quantity <= 0}" > 
+          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName), 'row-negative-quantity': item.quantity <= 0 }" > 
 
               <td>{{ item.id }}</td>
               <td class="test-output">
@@ -37,11 +37,11 @@
 
               </td>
 
-              <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity" style="width:10%">
+              <td [pEditableColumn]="item.quantity" pEditableColumnField="quantity" style="width:10%" >
                 <ng-container *ngIf="editorEnabled && editId===item.id; else outputTemplate">
                   <p-cellEditor>
                     <ng-template pTemplate="input">
-                      <input pInputText type="number" [(ngModel)]="item.quantity" (ngModelChange)="updateCartItemQuantity(item, $event)" class="custom-input-quantity" />
+                      <input pInputText type="number" [(ngModel)]="item.quantity" (ngModelChange)="updateCartItemQuantity(item, $event)" class="custom-input-quantity"  min="1"/>
                     </ng-template>
                     <ng-template pTemplate="output">
                       {{ item.quantity }}
@@ -67,13 +67,15 @@
               <td>{{ item.price }}</td>
               <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
               <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
-              <td style="text-align: center;"  [ngClass]="{'hide-row': item.quantity <= 0}" >
-                <span style="text-align: center;">
+              <td style="text-align: center;" >
+                <span style="text-align: center;" [ngClass]="{'hide-row': item.quantity <= 0}">
                   <p-button icon="pi pi-times" styleClass="p-button-raised p-button-danger p-button-text p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
                 </span>
+              <span [ngClass]="{'hide-row': item.quantity <= 0}">
                 |
                 <p-button icon="pi pi-refresh" styleClass="p-button-raised p-button-text p-button-success p-button-sm" (click)="refreshEditor(item.id)"></p-button>
-
+              </span>
+                
               </td>
               
           </tr>
