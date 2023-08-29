@@ -23,6 +23,8 @@ export class OrderService {
 
   private savedOrders$: BehaviorSubject<ICartItem[]> = new BehaviorSubject<ICartItem[]>([]);
 
+    totalSum$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
   constructor(private drugService:DrugService,
     private messageService: MessageService) {
 
@@ -36,9 +38,7 @@ export class OrderService {
       const drugName = this.inputSignal$.value;
       this.updateAddButtonAvailability(drugName, quantity);
     });
-
-
-
+    
   }
   // Method to update the cart items length
   updateCartItemsLength(length: number) {
@@ -81,9 +81,10 @@ export class OrderService {
 
   addToCart(cartItem: ICartItem): void {
 
-    this.cartItems$.subscribe(item=> {
+    /*this.cartItems$.subscribe(item=> {
       console.log("subscribe item...: ", item);
     });
+    */
     
     const currentCartItems = this.cartItems$.value;
     console.log("currentCartItems: ", currentCartItems);
@@ -93,11 +94,12 @@ export class OrderService {
         
         // Drug is already added, update the quantity
         existingCartItem.quantity += cartItem.quantity;
-        existingCartItem.totalPrice += cartItem.totalPrice;
+        existingCartItem.totalPrice = existingCartItem.price * existingCartItem.quantity;// += cartItem.totalPrice;
 
         this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
       // Set the duplicated drug name
         this.setDuplicatedName(existingCartItem.drugName);
+        this.updateTotalSum();
 
       } else {
 
@@ -105,6 +107,8 @@ export class OrderService {
         // Drug is not in the cart, add it as a new item
         this.cartItems$.next([...currentCartItems, cartItem]);
         this.updateQuantityInOriginalData(cartItem.drugName, cartItem.quantity);
+        this.updateTotalSum();
+
       }
     
       console.log("Order-service success --> currentCartItems: ", currentCartItems);
@@ -143,6 +147,16 @@ export class OrderService {
   getSavedOrders(): Observable<ICartItem[]> {
     return this.savedOrders$.asObservable();
   }
+
+  updateTotalSum(): void {
+    const currentCartItems = this.cartItems$.value;
+    const totalSum = currentCartItems.reduce((sum, item) => sum + item.totalPrice, 0);
+    this.totalSum$.next(totalSum);
+  }
+  getTotalSumObservable(): Observable<number> {
+    return this.totalSum$.asObservable();
+  }
+  
   /******************************************/
 
 
