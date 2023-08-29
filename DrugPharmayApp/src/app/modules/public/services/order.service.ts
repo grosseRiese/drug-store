@@ -127,6 +127,11 @@ export class OrderService {
       this.duplicatedName = '';
     });
   }
+
+  isRequestedQuantityAvailable(drugName: string, quantity: number): boolean {
+    return this.isDrugAvailable(drugName, quantity);
+  }
+
   /******************************************/
 
 
