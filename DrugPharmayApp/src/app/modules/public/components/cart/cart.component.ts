@@ -150,9 +150,14 @@ export class CartComponent implements OnInit {
     return !isAnyUnavailable;
   }
   
-
   getSavedOrders(): Observable<ICartItem[]> {
     return this.orderService.getSavedOrders();
   }
-  
+
+  isQuantityUnavailable(item: ICartItem): boolean {
+    return item.quantity > 0 && !item.isAvailable;
+  }
+  hasUnavailableItems(cartItems: ICartItem[] | null): boolean {
+    return cartItems?.some(item => item.quantity > 0 && !item.isAvailable) || false;
+  }
 }
