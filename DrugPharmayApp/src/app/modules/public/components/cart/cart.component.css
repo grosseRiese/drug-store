@@ -68,3 +68,7 @@
     /*display: none;*/
     visibility: hidden;
   }
+  .saved-order-row {
+    background-color: lightgray;
+  }
+  
