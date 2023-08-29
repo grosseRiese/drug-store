@@ -80,6 +80,20 @@
               
           </tr>
       </ng-template>
+      
+<!-- Existing table content -->
+<!-- ... -->
+
+        <!-- Display saved orders -->
+        <ng-container *ngIf="getSavedOrders() | async as savedOrders">
+          <tr *ngFor="let savedOrder of savedOrders" class="saved-order-row">
+            <td>{{ savedOrder.drugName }}</td>
+            <td>{{ savedOrder.quantity }}</td>
+            <td>{{ savedOrder.totalPrice | currency:'NIS':'symbol':'1.2-2' }}</td>
+            <!-- Add more columns as needed -->
+          </tr>
+        </ng-container>
+
       <ng-template pTemplate="footer">
         <tr>
             <td></td>
@@ -92,6 +106,7 @@
             <td class="customize-tot-price">Total Price: <span [ngClass]="'customize-price'">{{totalSum | currency:'NIS ':'symbol':'1.2-2'}} </span> </td>
         </tr>
       </ng-template>
+
   </p-table>
 
   <p-button label="Save" icon="pi pi-check" [disabled]="!isSaveButtonEnabled()" styleClass="p-button-success p-button-sm btn-save" (click)="saveChanges()" ></p-button>
