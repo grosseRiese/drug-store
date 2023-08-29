@@ -136,6 +136,7 @@ export class CartComponent implements OnInit {
   saveChanges(): void {
     this.cartItems$.pipe(take(1)).subscribe(cartItems => {
       this.orderService.updateCartItemsObservable(cartItems);
+      this.orderService.saveOrder(cartItems);
     });
   }
 
@@ -149,5 +150,9 @@ export class CartComponent implements OnInit {
     return !isAnyUnavailable;
   }
   
+
+  getSavedOrders(): Observable<ICartItem[]> {
+    return this.orderService.getSavedOrders();
+  }
   
 }
