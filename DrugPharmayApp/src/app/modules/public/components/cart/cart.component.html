@@ -64,9 +64,21 @@
                 
               </td>
               
-              <td>{{ item.price }}</td>
-              <td>{{ item.totalPrice | number: '1.2-2'  }}</td>
-              <td>{{ item.expireDate | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <span *ngIf="!isQuantityUnavailable(item)"> 
+                  {{ item.price }}
+                </span>
+              </td>
+              <td>
+                <span *ngIf="!isQuantityUnavailable(item)">
+                  {{ item.totalPrice | number: '1.2-2'  }}
+                </span>
+              </td>
+              <td>
+                <span *ngIf="!isQuantityUnavailable(item)">
+                  {{ item.expireDate | date:'dd/MM/yyyy' }}
+                </span>
+              </td>
               <td style="text-align: center;" >
                 <span style="text-align: center;" [ngClass]="{'hide-row': item.quantity <= 0}">
                   <p-button icon="pi pi-times" styleClass="p-button-raised p-button-danger p-button-text p-button-sm" (click)="onDeleteRow(item.id)" ></p-button>
@@ -81,9 +93,8 @@
           </tr>
       </ng-template>
       
-<!-- Existing table content -->
-<!-- ... -->
-
+        <!-- Existing table content -->
+        <!-- ... -->
         <!-- Display saved orders -->
         <ng-container *ngIf="getSavedOrders() | async as savedOrders">
           <tr *ngFor="let savedOrder of savedOrders" class="saved-order-row">
@@ -103,7 +114,14 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="customize-tot-price">Total Price: <span [ngClass]="'customize-price'">{{totalSum | currency:'NIS ':'symbol':'1.2-2'}} </span> </td>
+            <td class="customize-tot-price">
+              <div *ngIf="!hasUnavailableItems(cartItems$ | async )">
+                Total Price: 
+                <span [ngClass]="'customize-price'">
+                  {{totalSum | currency:'NIS ':'symbol':'1.2-2'}} 
+                </span>
+              </div>
+            </td>
         </tr>
       </ng-template>
 
