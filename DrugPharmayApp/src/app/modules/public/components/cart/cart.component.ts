@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, map, of, switchMap, take } from 'rxjs';
 import { ICartItem } from '../../models/cart-item';
 import { OrderService } from '../../services/order.service';
@@ -11,14 +11,14 @@ import { DrugService } from '../../services/drug.service';
   styleUrls: ['./cart.component.css'],
 
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit,OnDestroy {
   cartItems$: Observable<ICartItem[]>;// = this.orderService.getCartItems();
-  totalSum: number = 0; // Initialize the total sum
+  totalSum:number = 0; 
 
   drugNames: string[] = []; // Array to store drug names for autocomplete
   editorEnabled = false; 
   editId:number =0;
-  
+ 
   
   constructor( 
     public drugService:DrugService,
@@ -29,6 +29,10 @@ export class CartComponent implements OnInit {
       this.cartItems$.subscribe((items) => {
       this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
     });
+   // Subscribe to the totalSum$ BehaviorSubject to keep the totalSum property updated
+    this.orderService.totalSum$.subscribe(newTotalSum => {
+    this.totalSum = newTotalSum;
+  });
     
   }
 
@@ -39,6 +43,9 @@ export class CartComponent implements OnInit {
       this.drugNames = drugs.map(drug => drug.name);
     });
     
+  }
+
+  ngOnDestroy() {
   }
 
   onDrugNameChange(item: ICartItem): void {
@@ -160,4 +167,6 @@ export class CartComponent implements OnInit {
   hasUnavailableItems(cartItems: ICartItem[] | null): boolean {
     return cartItems?.some(item => item.quantity > 0 && !item.isAvailable) || false;
   }
+
+
 }
