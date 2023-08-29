@@ -20,7 +20,7 @@
 
       <ng-template pTemplate="body" let-item let-i="rowIndex" let-editing="editing" >
 
-          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName), 'row-negative-quantity': item.quantity <= 0 }" > 
+          <tr [ngClass]="{'selected-drug': orderService.isDuplicatedItem(item.drugName), 'row-negative-quantity': item.quantity <= 0 ||  !isSaveButtonEnabled() }" > 
 
               <td>{{ item.id }}</td>
               <td class="test-output">
@@ -94,6 +94,6 @@
       </ng-template>
   </p-table>
 
-  <p-button label="Save" icon="pi pi-check" styleClass="p-button-success p-button-sm btn-save" (click)="saveChanges()" ></p-button>
+  <p-button label="Save" icon="pi pi-check" [disabled]="!isSaveButtonEnabled()" styleClass="p-button-success p-button-sm btn-save" (click)="saveChanges()" ></p-button>
 
 </div>
