@@ -106,6 +106,9 @@ export class CartComponent implements OnInit {
       const updatedCartItems = cartItems.map(item => {
         if (item.id === cartItem.id) {
           item.quantity = newQuantity;
+          // Check if requested quantity is available
+          const isAvailable = this.orderService.isRequestedQuantityAvailable(item.drugName, item.quantity);
+          item.isAvailable = isAvailable;
           this.updateCartItemTotalPrice(item);
         }
         return item;
@@ -135,5 +138,16 @@ export class CartComponent implements OnInit {
       this.orderService.updateCartItemsObservable(cartItems);
     });
   }
+
+  isSaveButtonEnabled(): boolean {
+    let isAnyUnavailable = false;
+  
+    this.cartItems$.pipe(take(1)).subscribe(cartItems => {
+      isAnyUnavailable = cartItems.some(item => item.quantity > 0 && !item.isAvailable);
+    });
+  
+    return !isAnyUnavailable;
+  }
+  
   
 }
