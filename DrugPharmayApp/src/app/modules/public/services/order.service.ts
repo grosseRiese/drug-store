@@ -101,6 +101,7 @@ export class OrderService {
         this.setDuplicatedName(existingCartItem.drugName);
         this.updateTotalSum();
 
+
       } else {
 
         cartItem.totalPrice = cartItem.price * cartItem.quantity; 
@@ -110,9 +111,7 @@ export class OrderService {
         this.updateTotalSum();
 
       }
-    
-      console.log("Order-service success --> currentCartItems: ", currentCartItems);
-    
+        
       this.messageService.add({
         severity: 'success',
         summary: 'Order Added',
