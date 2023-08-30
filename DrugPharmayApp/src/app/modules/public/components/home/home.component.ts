@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit,OnDestroy{
   rows: ICartItem[] = []; // Initialize with an empty array
 
   constructor(private drugService: DrugService,
-    private orderService: OrderService,
+    public orderService: OrderService,
     private messageService: MessageService ) {}
 
   ngOnInit(): void {
