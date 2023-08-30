@@ -23,15 +23,8 @@ export class CartComponent implements OnInit,OnDestroy {
     public drugService:DrugService,
     public orderService:OrderService,
     private cdr: ChangeDetectorRef,) {
-
+      
       this.cartItems$ = this.orderService.getCartItems();
-      this.cartItems$.subscribe((items) => {
-      this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
-    });
-   // Subscribe to the totalSum$ BehaviorSubject to keep the totalSum property updated
-    this.orderService.totalSum$.subscribe(newTotalSum => {
-    this.totalSum = newTotalSum;
-  });
     
   }
 
@@ -42,6 +35,14 @@ export class CartComponent implements OnInit,OnDestroy {
       this.drugNames = drugs.map(drug => drug.name);
     });
     
+      this.cartItems$.subscribe((items) => {
+      this.totalSum = items.reduce((sum, item) => sum + item.totalPrice, 0);
+    });
+    // Subscribe to the totalSum$ BehaviorSubject to keep the totalSum property updated
+      this.orderService.totalSum$.subscribe(newTotalSum => {
+      this.totalSum = newTotalSum;
+    });
+
   }
 
   ngOnDestroy() {
